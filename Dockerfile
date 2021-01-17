@@ -6,17 +6,19 @@ RUN apt-get update && \
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
 USER OIVAS7572
 ADD /engine/ .
-RUN chmod +x /engine/stockfishbmi2
+#RUN chmod -R 777 ./engine/
+RUN chmod +x stockfishbmi2
+RUN chmod +x stockfishmodern
+RUN chmod +x stockfishavx2
+RUN chmod +x stockfishssse
+
+
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt-get update
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 
-#RUN chmod -R 777 ./engine/
 
-RUN chmod +x engine/stockfishmodern
-RUN chmod +x engine/stockfishavx2
-RUN chmod +x engine/stockfishssse
 RUN apt install python3-pip -y
 RUN apt install python3-venv
 RUN python3 -m venv venv
