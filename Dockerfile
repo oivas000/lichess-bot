@@ -12,15 +12,15 @@ RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt-get update
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 ADD /engine/ .
-CMD chmod -R 777 ./engine/
-RUN chmod +x ./engine/stockfishbmi2
-RUN chmod +x ./engine/stockfishmodern
-RUN chmod +x ./engine/stockfishavx2
-RUN chmod +x ./engine/stockfishssse
-CMD ["apt install python3-pip -y"]
-CMD ["apt install python3-venv"]
-CMD ["python3 -m venv venv"]
-CMD ["source ./venv/bin/activate"]
+RUN chmod -R 777 ./engine/
+#RUN chmod +x ./engine/stockfishbmi2
+#RUN chmod +x ./engine/stockfishmodern
+#RUN chmod +x ./engine/stockfishavx2
+#RUN chmod +x ./engine/stockfishssse
+RUN apt install python3-pip -y
+RUN apt install python3-venv
+RUN python3 -m venv venv
+RUN source ./venv/bin/activate
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 COPY . .
