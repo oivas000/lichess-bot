@@ -22,9 +22,9 @@ RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 RUN echo OIVAS7572 | sudo -S apt install python3-venv -y
 RUN echo OIVAS7572 | sudo -S python3 -m venv venv
-RUN source ./venv/bin/activate
+
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD python3 lichess-bot.py -u
+CMD source ./venv/bin/activate && python3 lichess-bot.py -u
 
