@@ -20,5 +20,5 @@ CMD ["source ./venv/bin/activate"]
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD python3 lichess-bot.py
+CMD python3 lichess-bot.py -u
 
