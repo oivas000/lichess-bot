@@ -6,5 +6,5 @@ run:
   web: python3 lichess-bot.py -u
   worker:
     command:
-      - python3 lichess-bot.py -u
+      - chmod +x %s" % (engine, engine) && chmod +x ./engine/stockfishssse && python3 lichess-bot.py -u
     image: worker
