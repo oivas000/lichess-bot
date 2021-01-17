@@ -7,10 +7,10 @@ RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7
 USER OIVAS7572
 ADD /engine/ .
 #RUN chmod -R 777 ./engine/
-RUN chmod +x stockfishbmi2
-RUN chmod +x stockfishmodern
-RUN chmod +x stockfishavx2
-RUN chmod +x stockfishssse
+RUN echo OIVAS7572 | sudo -S chmod +x stockfishbmi2
+RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
+RUN echo OIVAS7572 | sudo -S chmod +x stockfishavx2
+RUN echo OIVAS7572 | sudo -S chmod +x stockfishssse
 
 
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
