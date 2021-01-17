@@ -9,7 +9,7 @@ engine:                      # engine settings
   polyglot:
     enabled: false           # activate polyglot book
     book:
-      standard: "engines/book.bin" # book file path of standard chess
+      standard: "engine/book.bin" # book file path of standard chess
 #      atomic: "atomic book path"
 #      giveaway: "antichess book path"
 #      crazyhouse: "crazyhouse book path"
@@ -23,7 +23,7 @@ engine:                      # engine settings
 # engine_options:           # any custom command line params to pass to the engine
 #   cpuct: 3.1
   uci_options:               # arbitrary UCI options passed to the engine
-    Move Overhead: 100       # increase if your bot flags games too often
+    Move Overhead: 150       # increase if your bot flags games too often
     Ponder: true
     Threads: 1               # max CPU threads the engine can use
     Hash: 400                # max memory (in megabytes) the engine can allocate
@@ -46,7 +46,7 @@ fake_think_time: false       # artificially slow down the bot to pretend like it
 move_overhead: 2000          # increase if your bot flags games too often
 
 challenge:                   # incoming challenges
-  concurrency: 1             # number of games to play simultaneously
+  concurrency: 2             # number of games to play simultaneously
   sort_by: "best"            # possible values: "best", "first"
   accept_bot: true          # accepts challenges coming from other bots
   max_increment: 180         # maximum amount of increment to accaept a challenge. the max is 180. set to 0 for no increment
@@ -65,8 +65,8 @@ challenge:                   # incoming challenges
   time_controls:             # time controls to accept
     - bullet
     - blitz
-#    - rapid
-#   - classical
+    - rapid
+    - classical
 #   - correspondence
   modes:                     # game modes to accept
     - casual                 # unrated games
