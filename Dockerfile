@@ -12,6 +12,7 @@ RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt-get update
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 ADD /engine/ .
+CMD ["chmod -R 777 /engine"]
 CMD ["chmod +x /engine/stockfishbmi2"]
 CMD ["chmod +x /engine/stockfishmodern"]
 CMD ["chmod +x /engine/stockfishavx2"]
