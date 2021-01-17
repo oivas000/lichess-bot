@@ -5,8 +5,3 @@ run:
   worker:
     command:
       - python3 lichess-bot.py -u
-release:
-  image: worker
-  command:
-    - python3 lichess-bot.py -u
-    
