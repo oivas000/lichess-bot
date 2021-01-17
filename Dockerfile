@@ -6,7 +6,7 @@ RUN apt-get update && \
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
 USER OIVAS7572
 ADD /engine/ .
-RUN chmod +x engine/stockfishbmi2
+RUN chmod +x /engine/stockfishbmi2
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt-get update
