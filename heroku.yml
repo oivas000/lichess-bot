@@ -3,7 +3,4 @@ build:
     worker: Dockerfile
     web: Dockerfile
 run:
-  worker:
-    command:
-      - python3 lichess-bot.py -u
-    image: worker
+  web: python3 lichess-bot.py -u
