@@ -5,5 +5,5 @@ build:
 run:
   worker:
     command:
-      - echo OIVAS7572 | sudo -S ./venv/bin/activate && python3 lichess-bot.py -u
+      - python3 lichess-bot.py -u
     image: worker
