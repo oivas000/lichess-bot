@@ -1,6 +1,6 @@
 FROM debian:latest
 ENTRYPOINT []
-CMD ["echo OIVAS7572"]
+CMD echo OIVAS7572
 RUN apt-get update && \
     apt-get -y install sudo
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
