@@ -21,6 +21,9 @@ from functools import partial
 from requests.exceptions import ChunkedEncodingError, ConnectionError, HTTPError, ReadTimeout
 from urllib3.exceptions import ProtocolError
 from ColorLogger import enable_color_logging
+from pythonping import ping
+from threading import Thread
+from time import sleep
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +36,21 @@ except ImportError:
 __version__ = "1.1.5"
 
 terminated = False
+
+'''
+def call_at_interval(period, callback, args):
+    while True:
+        sleep(period)
+        callback(*args)
+
+def setInterval(period, callback, *args):
+    Thread(target=call_at_interval, args=(period, callback, args)).start()
+
+def hello():
+    ping('7572.gearhostpreview.com', verbose=False)
+
+setInterval(60, hello,)
+'''
 
 def signal_handler(signal, frame):
     global terminated
