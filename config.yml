@@ -26,7 +26,7 @@ engine:                      # engine settings
     Move Overhead: 100       # increase if your bot flags games too often
     Ponder: true
     Threads: 1               # max CPU threads the engine can use
-    Hash: 450                # max memory (in megabytes) the engine can allocate
+    Hash: 500                # max memory (in megabytes) the engine can allocate
 #   go_commands:             # additional options to pass to the UCI go command
 #     nodes: 1               # Search so many nodes only.
 #   depth: 9               # Search depth ply only.
@@ -53,15 +53,15 @@ challenge:                   # incoming challenges
   min_increment: 0           # minimum amount of increment to accept a challenge
   variants:                  # chess variants to accept (http://lichess.org/variant)
     - standard
-    - fromPosition
-    - antichess
-    - atomic
-    - chess960
-    - crazyhouse
-    - horde
-    - kingOfTheHill
-    - racingKings
-    - threeCheck
+#    - fromPosition
+#    - antichess
+#    - atomic
+#    - chess960
+#    - crazyhouse
+#    - horde
+#    - kingOfTheHill
+#    - racingKings
+#    - threeCheck
   time_controls:             # time controls to accept
     - bullet
     - blitz
