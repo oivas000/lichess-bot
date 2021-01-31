@@ -26,7 +26,7 @@ engine:                      # engine settings
     Move Overhead: 100       # increase if your bot flags games too often
     Ponder: true
     Threads: 1               # max CPU threads the engine can use
-    Hash: 500                # max memory (in megabytes) the engine can allocate
+    Hash: 450                # max memory (in megabytes) the engine can allocate
 #   go_commands:             # additional options to pass to the UCI go command
 #     nodes: 1               # Search so many nodes only.
 #   depth: 9               # Search depth ply only.
