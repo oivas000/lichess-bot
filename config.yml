@@ -53,7 +53,7 @@ challenge:                   # incoming challenges
   min_increment: 0           # minimum amount of increment to accept a challenge
   variants:                  # chess variants to accept (http://lichess.org/variant)
     - standard
-#    - fromPosition
+    - fromPosition
 #    - antichess
 #    - atomic
 #    - chess960
