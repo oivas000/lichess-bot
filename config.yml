@@ -6,8 +6,8 @@ engine:                      # engine settings
   name: "stockfishmodern"        # binary name of the engine to use
   protocol: "uci"            # "uci" or "xboard"
   uci_ponder: true           # think on opponent time; only works if "protocol" is "uci"
-  polyglot:
-    enabled: false           # activate polyglot book
+  polyglot: Cerebellum3Merge.bin
+    enabled: true           # activate polyglot book
     book:
       standard: "engine/book.bin" # book file path of standard chess
 #      atomic: "atomic book path"
