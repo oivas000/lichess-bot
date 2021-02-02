@@ -9,7 +9,7 @@ engine:                      # engine settings
   polyglot: Cerebellum3Merge.bin
     enabled: false           # activate polyglot book
     book:
-#      standard: "Cerebellum3Merge.bin" # book file path of standard chess
+       standard: "book.bin" # book file path of standard chess
 #      atomic: "atomic book path"
 #      giveaway: "antichess book path"
 #      crazyhouse: "crazyhouse book path"
