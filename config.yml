@@ -7,7 +7,7 @@ engine:                      # engine settings
   protocol: "uci"            # "uci" or "xboard"
   uci_ponder: true           # think on opponent time; only works if "protocol" is "uci"
   polyglot:
-    enabled: false           # activate polyglot book
+    enabled: true           # activate polyglot book
     book:
       standard: # list of book file paths for variant standard
         - Cerebellum3Merge.bin
