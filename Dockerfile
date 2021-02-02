@@ -6,7 +6,7 @@ RUN apt-get -y install sudo
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
 USER OIVAS7572
 ADD /engine/ .
-RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
+RUN echo OIVAS7572 | sudo -S apt install p7zip -y
 RUN echo OIVAS7572 | sudo -S 7z
 #If you are using docker  
 #change config.yml engine and book to "./name"
@@ -26,6 +26,7 @@ RUN echo OIVAS7572 | sudo -S 7z e book.7z
 RUN echo OIVAS7572 | sudo -S rm book.7z 
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
+RUN echo OIVAS7572 | sudo -S ls
 COPY . .
 #RUN echo OIVAS7572 | sudo -S apt install python3-venv -y
 #RUN echo OIVAS7572 | sudo -S python3 -m venv venv
