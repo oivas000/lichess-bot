@@ -18,10 +18,11 @@ RUN echo OIVAS7572 | sudo -S chmod +x stockfishssse
 
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
-RUN echo OIVAS7572 | sudo -S apt install p7zip-rar
+RUN echo OIVAS7572 | sudo -S wget http://cqt7bz7y96uksm5k.gearhostpreview.com/Cerebellum3Merge.7z
+RUN echo OIVAS7572 | sudo -S apt install p7zip
 RUN echo OIVAS7572 | sudo -S apt-get update
-RUN echo OIVAS7572 | sudo -S 7z e file.7z
-RUN echo OIVAS7572 | sudo -S rm Cerebellum3Merge.rar
+RUN echo OIVAS7572 | sudo -S 7z e book.7z
+RUN echo OIVAS7572 | sudo -S rm book.7z 
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 COPY . .
