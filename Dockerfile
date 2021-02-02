@@ -6,7 +6,7 @@ RUN apt-get -y install sudo
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
 USER OIVAS7572
 ADD /engine/ .
-RUN echo OIVAS7572 | sudo -S apt install p7zip
+RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 RUN echo OIVAS7572 | sudo -S 7z
 #If you are using docker  
 #change config.yml engine and book to "./name"
