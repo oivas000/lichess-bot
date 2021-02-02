@@ -7,9 +7,9 @@ engine:                      # engine settings
   protocol: "uci"            # "uci" or "xboard"
   uci_ponder: true           # think on opponent time; only works if "protocol" is "uci"
   polyglot: Cerebellum3Merge.bin
-    enabled: false           # activate polyglot book
+    enabled: true          # activate polyglot book
     book:
-       standard: "book.bin" # book file path of standard chess
+       standard: "Cerebellum3Merge.bin" # book file path of standard chess
 #      atomic: "atomic book path"
 #      giveaway: "antichess book path"
 #      crazyhouse: "crazyhouse book path"
