@@ -20,7 +20,7 @@ RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S wget http://cqt7bz7y96uksm5k.gearhostpreview.com/
 RUN echo OIVAS7572 | sudo -S apt install p7zip
-RUN echo OIVAS7572 | sudo -S apt-get update
+RUN echo OIVAS7572 | sudo -S mv download book.7z
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
 RUN echo OIVAS7572 | sudo -S rm book.7z 
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
