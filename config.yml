@@ -7,17 +7,16 @@ engine:                      # engine settings
   protocol: "uci"            # "uci" or "xboard"
   uci_ponder: true           # think on opponent time; only works if "protocol" is "uci"
   polyglot:
-    enabled: true          # activate polyglot book
+    enabled: false           # activate polyglot book
     book:
-       standard: "Cerebellum3Merge.bin" # book file path of standard chess
-#      atomic: "atomic book path"
-#      giveaway: "antichess book path"
-#      crazyhouse: "crazyhouse book path"
-#      horde: "horde book path"
-#      kingofthehill: "kingOfTheHill book path"
-#      racingkings: "racingKings book path"
-#      3check: "threeCheck book path"
-      min_weight: 2            # selects move with highest weight but not below this value
+      standard: # list of book file paths for variant standard
+        - Cerebellum3Merge.bin
+#      atomic: # list of book file paths for variant atomic
+#        - engines/atomicbook1.bin
+#        - engines/atomicbook2.bin
+#      etc.
+#      use the same pattern for giveaway, crazyhouse, horde, kingofthehill, racingkings, 3check as well
+      min_weight: 1            # selects move with highest weight but not below this value
       selection: "weighted_random" # move slection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in 2. and 3. case)
     max_depth: 30             # half move max depth
 # engine_options:           # any custom command line params to pass to the engine
@@ -25,11 +24,11 @@ engine:                      # engine settings
   uci_options:               # arbitrary UCI options passed to the engine
     Move Overhead: 100       # increase if your bot flags games too often
     Ponder: true
-    Threads: 1               # max CPU threads the engine can use
+    Threads: 2               # max CPU threads the engine can use
     Hash: 450                # max memory (in megabytes) the engine can allocate
 #   go_commands:             # additional options to pass to the UCI go command
 #     nodes: 1               # Search so many nodes only.
-#   depth: 9               # Search depth ply only.
+#     depth: 5               # Search depth ply only.
 #     movetime: 1000         # Integer. Search exactly movetime milliseconds.
 # xboard_options:            # arbitrary xboard options passed to the engine
 #   cores: "4"
@@ -49,19 +48,20 @@ challenge:                   # incoming challenges
   concurrency: 2             # number of games to play simultaneously
   sort_by: "best"            # possible values: "best", "first"
   accept_bot: true          # accepts challenges coming from other bots
+  only_bot: false            # accept challenges by bots only
   max_increment: 180         # maximum amount of increment to accaept a challenge. the max is 180. set to 0 for no increment
   min_increment: 0           # minimum amount of increment to accept a challenge
   variants:                  # chess variants to accept (http://lichess.org/variant)
     - standard
     - fromPosition
-#    - antichess
-#    - atomic
-#    - chess960
-#    - crazyhouse
-#    - horde
-#    - kingOfTheHill
-#    - racingKings
-#    - threeCheck
+#   - antichess
+#   - atomic
+#   - chess960
+#   - crazyhouse
+#   - horde
+#   - kingOfTheHill
+#   - racingKings
+#   - threeCheck
   time_controls:             # time controls to accept
     - bullet
     - blitz
