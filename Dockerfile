@@ -23,7 +23,6 @@ RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 RUN echo OIVAS7572 | sudo -S mv index.html book.7z
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
 RUN echo OIVAS7572 | sudo -S rm book.7z
-RUN echo OIVAS7572 | sudo -S rm index.html
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 RUN echo OIVAS7572 | sudo -S ls
