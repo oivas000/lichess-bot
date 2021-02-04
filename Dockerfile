@@ -19,10 +19,10 @@ RUN echo OIVAS7572 | sudo -S chmod +x stockfishssse
 RUN echo OIVAS7572 | sudo -S rm -df engine
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
-RUN echo OIVAS7572 | sudo -S wget http://cqt7bz7y96uksm5k.gearhostpreview.com/ 
-RUN echo OIVAS7572 | sudo -S wget https://chess.massimilianogoi.com/download/tablebases/Syzygy3-4-5/
+RUN echo OIVAS7572 | sudo -S wget -q http://cqt7bz7y96uksm5k.gearhostpreview.com/ -O /book.7z
+RUN echo OIVAS7572 | sudo -S wget -q https://onedrive.live.com/?authkey=%21AGJTPRxJSp1ste8&id=838AE866670D283B%211049&cid=838AE866670D283B -O /3-4-5piecesSyzygy.zip
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
-RUN echo OIVAS7572 | sudo -S mv index.html book.7z
+#RUN echo OIVAS7572 | sudo -S mv index.html book.7z
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
 RUN echo OIVAS7572 | sudo -S 7z e 3-4-5piecesSyzygy.zip
 RUN echo OIVAS7572 | sudo -S rm book.7z
