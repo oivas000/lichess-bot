@@ -20,7 +20,7 @@ RUN echo OIVAS7572 | sudo -S rm -df engine
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S wget -O book.7z http://cqt7bz7y96uksm5k.gearhostpreview.com/
-RUN echo OIVAS7572 | sudo -S wget -m https://onedrive.live.com/redir.aspx?cid=2d02caf4846bf413&resid=2D02CAF4846BF413!281&parId=2D02CAF4846BF413!249&authkey=!ANYJmR2IBCnKjZg -O 3-4-5piecesSyzygy.zip
+RUN echo OIVAS7572 | sudo -S wget -O 3-4-5piecesSyzygy.zip https://drive.google.com/uc?export=download&id=tTB8&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 #RUN echo OIVAS7572 | sudo -S mv index.html book.7z
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
