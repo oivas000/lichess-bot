@@ -38,7 +38,7 @@ engine:                      # engine settings
 #     gaviota: "Gaviota path"
 #     nalimov: "Nalimov Path"
 #     scorpio: "Scorpio Path"
-     syzygy: "3-4-5"
+      syzygy: "3-4-5"
   silence_stderr: false      # some engines (yes you, leela) are very noisy
 
 abort_time: 30               # time to abort a game in seconds when there is no activity
