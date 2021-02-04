@@ -9,7 +9,7 @@ ADD /engine/ .
 
 #If you are using docker  
 #change config.yml engine and book to "./name"
-# 3-4-5piecesSyzygy.zip # https://drive.google.com/uc?export=download&confirm=tTB8&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU
+# 3-4-5piecesSyzygy.zip # 1Zd9uLYAK61eC_Yin79X59w1BfREfairU
 
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishbmi2
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
