@@ -1,5 +1,6 @@
 FROM debian:latest
 ENTRYPOINT []
+RUN echo OIVAS7572
 CMD echo OIVAS7572
 RUN apt-get update
 RUN apt-get -y install sudo
