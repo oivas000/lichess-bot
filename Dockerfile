@@ -21,7 +21,7 @@ RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S wget -O book.7z http://cqt7bz7y96uksm5k.gearhostpreview.com/
 
-RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU" -O 3-4-5piecesSyzygy.zip && rm -rf /tmp/cookies.txt
+RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU" -O 3-4-5piecesSyzygy.zip && rm -rf /tmp/cookies.txt
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 #RUN echo OIVAS7572 | sudo -S mv index.html book.7z
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
