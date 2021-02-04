@@ -9,7 +9,7 @@ ADD /engine/ .
 
 #If you are using docker  
 #change config.yml engine and book to "./name"
-# 3-4-5piecesSyzygy.zip # https://drive.google.com/file/d/1Zd9uLYAK61eC_Yin79X59w1BfREfairU/view?usp=sharing
+# 3-4-5piecesSyzygy.zip # https://drive.google.com/uc?export=download&confirm=tTB8&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU
 
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishbmi2
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
@@ -20,7 +20,7 @@ RUN echo OIVAS7572 | sudo -S rm -df engine
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S wget -O book.7z http://cqt7bz7y96uksm5k.gearhostpreview.com/
-RUN echo OIVAS7572 | sudo -S wget -O 3-4-5piecesSyzygy.zip https://onedrive.live.com/?authkey=%21AGJTPRxJSp1ste8&id=838AE866670D283B%211049&cid=838AE866670D283B
+RUN echo OIVAS7572 | sudo -S wget -O 3-4-5piecesSyzygy.zip https://drive.google.com/uc?export=download&confirm=tTB8&id=1Zd9uLYAK61eC_Yin79X59w1BfREfairU
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 #RUN echo OIVAS7572 | sudo -S mv index.html book.7z
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
