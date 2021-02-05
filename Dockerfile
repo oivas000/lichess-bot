@@ -2,7 +2,7 @@ FROM debian:latest
 MAINTAINER SAVIO PRINCE
 RUN echo OIVAS7572
 CMD echo OIVAS7572
-WORKDIR .
+WORKDIR ..
 RUN apt-get update
 RUN apt-get -y install sudo
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
