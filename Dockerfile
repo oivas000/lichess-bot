@@ -26,7 +26,7 @@ RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.
 RUN echo OIVAS7572 | sudo -S 7z e 3-4-5piecesSyzygy.zip
 RUN echo OIVAS7572 | sudo -S rm 3-4-5piecesSyzygy.zip
 RUN echo OIVAS7572 | sudo -S ls
-WORKDIR .. /
+WORKDIR ~
 RUN echo OIVAS7572 | sudo -S wget -O book.7z http://cqt7bz7y96uksm5k.gearhostpreview.com/
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
 RUN echo OIVAS7572 | sudo -S rm book.7z
