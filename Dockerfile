@@ -3,6 +3,7 @@ MAINTAINER SAVIO PRINCE
 RUN echo OIVAS7572
 CMD echo OIVAS7572
 COPY . .
+RUN rmdir engine
 WORKDIR ..
 RUN apt-get update
 RUN apt-get -y install sudo
@@ -19,7 +20,7 @@ RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishavx2
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishssse
 
-RUN echo OIVAS7572 | sudo -S rm -df engine
+RUN echo OIVAS7572 | sudo -S rmdir engine
 RUN echo OIVAS7572 | sudo -S apt-get update && sudo apt-get install -y vim
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
