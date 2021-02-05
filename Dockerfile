@@ -3,7 +3,6 @@ MAINTAINER SAVIO PRINCE
 RUN echo OIVAS7572
 CMD echo OIVAS7572
 COPY . .
-RUN rm -r engine
 WORKDIR ..
 RUN apt-get update
 RUN apt-get -y install sudo
