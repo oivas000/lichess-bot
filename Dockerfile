@@ -12,7 +12,8 @@ ADD /engine/ .
 
 # If you are using docker  
 # change config.yml engine and book to "./name"
-# 3-4-5piecesSyzygy.zip # 1Zd9uLYAK61eC_Yin79X59w1BfREfairU # http://cqt7bz7y96uksm5k.gearhostpreview.com/
+# 3-4-5piecesSyzygy.zip # 1Zd9uLYAK61eC_Yin79X59w1BfREfairU
+# Cerebellum3Merge.bin.7z # 1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_
 
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishbmi2
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
@@ -28,7 +29,7 @@ RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.
 RUN echo OIVAS7572 | sudo -S 7z e 3-4-5piecesSyzygy.zip
 RUN echo OIVAS7572 | sudo -S rm 3-4-5piecesSyzygy.zip
 WORKDIR ..
-RUN echo OIVAS7572 | sudo -S wget -O book.7z http://cqt7bz7y96uksm5k.gearhostpreview.com/
+RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_" -O Cerebellum3Merge.bin.7z && rm -rf /tmp/cookies.txt
 RUN echo OIVAS7572 | sudo -S 7z e book.7z
 RUN echo OIVAS7572 | sudo -S rm book.7z
 RUN echo OIVAS7572 | sudo -S pwd && ls
