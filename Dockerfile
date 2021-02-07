@@ -35,7 +35,6 @@ RUN echo OIVAS7572 | sudo -S rm Cerebellum3Merge.bin.7z
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
-
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 CMD python3 run.py
