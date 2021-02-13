@@ -29,10 +29,9 @@ RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.
 RUN echo OIVAS7572 | sudo -S 7z e 3-4-5piecesSyzygy.zip
 RUN echo OIVAS7572 | sudo -S rm 3-4-5piecesSyzygy.zip
 WORKDIR ..
-RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_" -O book.bin.7z && rm -rf /tmp/cookies.txt
-RUN echo OIVAS7572 | sudo -S 7z e book.bin.7z
-RUN echo OIVAS7572 | sudo -S rm book.bin.7z
-RUN echo OIVAS7572 | sudo -S mv Cerebellum3Merge.bin book.bin 
+RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_f6Ru0FhD3V4-VFSUVuX6-95NLaL_Y3_" -O Cerebellum3Merge.bin.7z && rm -rf /tmp/cookies.txt
+RUN echo OIVAS7572 | sudo -S 7z e Cerebellum3Merge.bin.7z
+RUN echo OIVAS7572 | sudo -S rm Cerebellum3Merge.bin.7z 
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
