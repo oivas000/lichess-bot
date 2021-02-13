@@ -1,4 +1,4 @@
-token: ""    # lichess OAuth2 Token
+token: "FviAWH3NdLhoWeWZ"    # lichess OAuth2 Token
 url: "https://lichess.org/"  # lichess base URL
 
 engine:                      # engine settings
@@ -10,7 +10,7 @@ engine:                      # engine settings
     enabled: true           # activate polyglot book
     book:
       standard: # list of book file paths for variant standard
-        - book.bin
+        - Cerebellum3Merge.bin
         - Drawkiller_EloZoom_big.bin
 #      atomic: # list of book file paths for variant atomic
 #        - engines/atomicbook1.bin
