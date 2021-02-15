@@ -17,7 +17,6 @@ RUN echo OIVAS7572 | sudo -S chmod +x stockfishbmi2
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishavx2
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishssse
-RUN echo OIVAS7572 | sudo -S ls
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 COPY requirements.txt .
