@@ -2,11 +2,11 @@ FROM debian:10.8-slim
 MAINTAINER SAVIO PRINCE
 RUN echo OIVAS7572
 CMD echo OIVAS7572
+COPY . .
 RUN apt-get update
 RUN apt-get -y install sudo
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
 USER OIVAS7572
-RUN echo OIVAS7572 | sudo -S ls
 ADD /engine/ .
 
 # If you are using docker  
