@@ -9,5 +9,5 @@ Run this in cmd `heroku stack:set container -a appname` replace app name with yo
 Connect app with Github and deploy app in Heroku.
 After deploying turn worker on in Resources menu in heroku. 
 ## INFO
--ENGINE STOCKFISH 13 SSE4.1 + POPCNT
--BOOK Aaricia_2012.bin
+ENGINE STOCKFISH 13 SSE4.1 + POPCNT                                                                         
+BOOK Aaricia_2012.bin
