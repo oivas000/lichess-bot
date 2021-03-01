@@ -1,4 +1,4 @@
-# lichess-bot
+# lichess-bot MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)
 A bridge between [Lichess API](https://lichess.org/api#tag/Chess-Bot) and bots.
 This bot is using docker and concentrated on Heroku server.
 ## How to Install In Heroku
