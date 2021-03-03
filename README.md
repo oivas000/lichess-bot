@@ -1,7 +1,7 @@
 # MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)
 
-[![Python application](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/python-app.yml/badge.svg)](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/python-app.yml)
-[![Docker Image CI](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/docker-image.yml/badge.svg)](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/docker-image.yml)
+[![Python](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/python-app.yml/badge.svg)](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/python-app.yml)
+[![Docker](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/docker-image.yml/badge.svg)](https://github.com/TheYoBots/lichess-bot-1/actions/workflows/docker-image.yml)
 
 # lichess-bot
 
