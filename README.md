@@ -12,7 +12,7 @@
 
 - Import or Fork this repository to your Github repository.
 - Open config.yml and insert API accses token in to token option and commit changes
-- Install heroku cli and create app in Heroku.com.
+- Install Heroku CLI and create app in Heroku.com.
 - Run this in cmd `heroku stack:set container -a appname` replace app name with your app's name.
 - Connect app with Github and deploy app in Heroku.
 - After deploying turn worker on in Resources menu in heroku. 
