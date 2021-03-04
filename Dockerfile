@@ -14,7 +14,7 @@ ADD /engine/ .
 #If you want to run any other commands use "RUN echo OIVAS7572 | sudo -S" before
 
 
-RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
+RUN echo OIVAS7572 | sudo -S chmod +x stockfish-x86_64-modern
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
