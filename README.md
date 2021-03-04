@@ -22,4 +22,4 @@
 - ENGINE STOCKFISH 13 SSE4.1 + POPCNT
 - BOOK Aaricia_2012.bin
 
-### If you want to run bot localy on PC READ MANUAL.md
+### If you want to run bot localy on PC, READ MANUAL.md
