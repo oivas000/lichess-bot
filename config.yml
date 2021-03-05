@@ -3,7 +3,7 @@ url: "https://lichess.org/"  # lichess base URL
 
 engine:                      # engine settings
   dir: "./"          # dir containing engines, relative to this project
-  name: "stockfish-x86_64-modern"        # binary name of the engine to use
+  name: "stockfish_13_linux_x64_modern"        # binary name of the engine to use
   protocol: "uci"            # "uci" or "xboard"
   uci_ponder: true           # think on opponent time; only works if "protocol" is "uci"
   polyglot:
@@ -43,7 +43,7 @@ engine:                      # engine settings
 
 abort_time: 30               # time to abort a game in seconds when there is no activity
 fake_think_time: false       # artificially slow down the bot to pretend like it's thinking
-move_overhead: 2000          # increase if your bot flags games too often
+move_overhead: 2500          # increase if your bot flags games too often
 
 challenge:                   # incoming challenges
   concurrency: 1             # number of games to play simultaneously
@@ -55,14 +55,14 @@ challenge:                   # incoming challenges
   variants:                  # chess variants to accept (http://lichess.org/variant)
     - standard
     - fromPosition
-    - antichess
-    - atomic
+#    - antichess
+#    - atomic
     - chess960
-    - crazyhouse
-    - horde
-    - kingOfTheHill
-    - racingKings
-    - threeCheck
+#    - crazyhouse
+#    - horde
+#    - kingOfTheHill
+#    - racingKings
+#    - threeCheck
   time_controls:             # time controls to accept
     - bullet
     - blitz
