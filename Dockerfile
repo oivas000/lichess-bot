@@ -15,6 +15,7 @@ ADD /engine/ .
 
 
 RUN echo OIVAS7572 | sudo -S chmod +x stockfish_13_linux_x64_modern
+RUN echo OIVAS7572 | sudo -S chmod +x fairy-stockfish-largeboard_x86-64
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
