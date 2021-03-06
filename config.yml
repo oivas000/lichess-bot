@@ -19,7 +19,7 @@ engine:                      # engine settings
 #      use the same pattern for giveaway, crazyhouse, horde, kingofthehill, racingkings, 3check as well
       min_weight: 50            # selects move with highest weight but not below this value
       selection: "best_move" # move slection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in 2. and 3. case)
-    max_depth: 100             # half move max depth
+    max_depth: 80             # half move max depth
 # engine_options:           # any custom command line params to pass to the engine
 #   cpuct: 3.1
   uci_options:               # arbitrary UCI options passed to the engine
@@ -43,7 +43,7 @@ engine:                      # engine settings
 
 abort_time: 30               # time to abort a game in seconds when there is no activity
 fake_think_time: false       # artificially slow down the bot to pretend like it's thinking
-move_overhead: 2500          # increase if your bot flags games too often
+move_overhead: 2000          # increase if your bot flags games too often
 
 challenge:                   # incoming challenges
   concurrency: 1             # number of games to play simultaneously
