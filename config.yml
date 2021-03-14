@@ -20,7 +20,7 @@ engine:                      # engine settings
       min_weight: 50            # does not select moves with weight below min_weight (min 0, max: 65535)
       selection: "best_move" # move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in 2. and 3. case)
     max_depth: 100             # half move max depth
-# engine_options:           # any custom command line params to pass to the engine
+# engine_options:            # any custom command line params to pass to the engine
 #   cpuct: 3.1
   uci_options:               # arbitrary UCI options passed to the engine
     Move Overhead: 100       # increase if your bot flags games too often
@@ -49,7 +49,7 @@ challenge:                   # incoming challenges
   sort_by: "best"            # possible values: "best", "first"
   accept_bot: true          # accepts challenges coming from other bots
   only_bot: false            # accept challenges by bots only
-  max_increment: 50         # maximum amount of increment to accaept a challenge. the max is 180. set to 0 for no increment
+  max_increment: 50         # maximum amount of increment to accept a challenge. the max is 180. set to 0 for no increment
   min_increment: 0           # minimum amount of increment to accept a challenge
   max_base: 315360000        # maximum amount of base time to accept a challenge. the max is 315360000 (10 years)
   min_base: 0                # minimum amount of base time to accept a challenge
