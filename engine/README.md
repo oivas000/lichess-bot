@@ -1,1 +1,1 @@
-Put your engines here.
+Put your engine and .bin polyglot opening books here.

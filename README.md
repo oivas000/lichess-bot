@@ -19,7 +19,10 @@
 
 ## INFO
 
-- ENGINE STOCKFISH 13 SSE4.1 + POPCNT
-- BOOK Aaricia_2012.bin
+- ENGINE:
+STOCKFISH 13 SSE4.1 + POPCNT
+- OPENING BOOKS: 
+Aaricia_2012.bin
+Drawkiller_EloZoom_big.bin
 
-### If you want to run bot localy on PC, READ [MANUAL.md](https://github.com/OIVAS7572/lichess-bot/blob/main/MANUAL.md)
+### If you want to run bot localy on PC, read the [lichess-bot manual](https://github.com/ShailChoksi/lichess-bot#lichess-bot).
