@@ -1,59 +1,60 @@
-token: "yourtoken"     # lichess OAuth2 Token
+token: "yourtoken"           # lichess OAuth2 Token
 url: "https://lichess.org/"  # lichess base URL
 
 engine:                      # engine settings
-  dir: "./"          # dir containing engines, relative to this project
+  dir: "./"                  # dir containing engines, relative to this project
   name: "stockfishmodern"        # binary name of the engine to use
   protocol: "uci"            # "uci" or "xboard"
   uci_ponder: true           # think on opponent time; only works if "protocol" is "uci"
   polyglot:
-    enabled: true           # activate polyglot book
+    enabled: true            # activate polyglot book
     book:
-      standard: # list of book file paths for variant standard
+      standard:              # list of book file paths for variant standard
         - Aaricia_2012.bin
         - Drawkiller_EloZoom_big.bin
-#      atomic: # list of book file paths for variant atomic
+#      atomic:               # list of book file paths for variant atomic
 #        - engines/atomicbook1.bin
 #        - engines/atomicbook2.bin
 #      etc.
 #      use the same pattern for giveaway, crazyhouse, horde, kingofthehill, racingkings, 3check as well
-      min_weight: 50            # does not select moves with weight below min_weight (min 0, max: 65535)
-      selection: "best_move" # move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in 2. and 3. case)
-    max_depth: 100             # half move max depth
-# engine_options:            # any custom command line params to pass to the engine
+      min_weight: 50          # does not select moves with weight below min_weight (min 0, max: 65535)
+      selection: "best_move"  # move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in 2. and 3. case)
+    max_depth: 100            # half move max depth
+# engine_options:             # any custom command line params to pass to the engine
 #   cpuct: 3.1
-  uci_options:               # arbitrary UCI options passed to the engine
-    Move Overhead: 100       # increase if your bot flags games too often
-    Threads: 7               # max CPU threads the engine can use
-    Hash: 400                # max memory (in megabytes) the engine can allocate
-#   go_commands:             # additional options to pass to the UCI go command
-#     nodes: 1               # Search so many nodes only.
-#     depth: 5               # Search depth ply only.
-#     movetime: 1000         # Integer. Search exactly movetime milliseconds.
-# xboard_options:            # arbitrary xboard options passed to the engine
+  uci_options:                # arbitrary UCI options passed to the engine
+    Move Overhead: 100        # increase if your bot flags games too often
+    Threads: 7                # max CPU threads the engine can use
+    Hash: 400                 # max memory (in megabytes) the engine can allocate
+    Clear Hash: true          # Clear the hash table
+#   go_commands:              # additional options to pass to the UCI go command
+#     nodes: 1                # Search so many nodes only.
+#     depth: 5                # Search depth ply only.
+#     movetime: 1000          # Integer. Search exactly movetime milliseconds.
+# xboard_options:             # arbitrary xboard options passed to the engine
 #   cores: "4"
 #   memory: "4096"
 #    egtpath:                 # dir containing egtb, relative to this project
 #     gaviota: "Gaviota path"
 #     nalimov: "Nalimov Path"
 #     scorpio: "Scorpio Path"
-#     syzygy: "3-4-5"
-  silence_stderr: false      # some engines (yes you, leela) are very noisy
+#     syzygy: "Syzygy Path"
+  silence_stderr: false       # some engines (yes you, leela) are very noisy
 
-abort_time: 30               # time to abort a game in seconds when there is no activity
-fake_think_time: false       # artificially slow down the bot to pretend like it's thinking
-move_overhead: 2000          # increase if your bot flags games too often
+abort_time: 30                # time to abort a game in seconds when there is no activity
+fake_think_time: false        # artificially slow down the bot to pretend like it's thinking
+move_overhead: 2000           # increase if your bot flags games too often
 
-challenge:                   # incoming challenges
-  concurrency: 1             # number of games to play simultaneously
-  sort_by: "best"            # possible values: "best", "first"
-  accept_bot: true          # accepts challenges coming from other bots
-  only_bot: false            # accept challenges by bots only
-  max_increment: 50         # maximum amount of increment to accept a challenge. the max is 180. set to 0 for no increment
-  min_increment: 0           # minimum amount of increment to accept a challenge
-  max_base: 315360000        # maximum amount of base time to accept a challenge. the max is 315360000 (10 years)
-  min_base: 0                # minimum amount of base time to accept a challenge
-  variants:                  # chess variants to accept (http://lichess.org/variant)
+challenge:                    # incoming challenges
+  concurrency: 1              # number of games to play simultaneously
+  sort_by: "best"             # possible values: "best", "first"
+  accept_bot: true            # accepts challenges coming from other bots
+  only_bot: false             # accept challenges by bots only
+  max_increment: 50           # maximum amount of increment to accept a challenge. the max is 180. set to 0 for no increment
+  min_increment: 0            # minimum amount of increment to accept a challenge
+  max_base: 315360000         # maximum amount of base time to accept a challenge. the max is 315360000 (10 years)
+  min_base: 0                 # minimum amount of base time to accept a challenge
+  variants:                   # chess variants to accept (http://lichess.org/variant)
     - standard
     - fromPosition
 #   - antichess
@@ -64,12 +65,12 @@ challenge:                   # incoming challenges
 #   - kingOfTheHill
 #   - racingKings
 #   - threeCheck
-  time_controls:             # time controls to accept
+  time_controls:              # time controls to accept
     - bullet
     - blitz
     - rapid
     - classical
 #   - correspondence
-  modes:                     # game modes to accept
-    - casual                 # unrated games
-    - rated                  # rated games - must comment if the engine doesn't try to win
+  modes:                      # game modes to accept
+    - casual                  # unrated games
+    - rated                   # rated games - must comment if the engine doesn't try to win
