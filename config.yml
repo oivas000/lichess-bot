@@ -11,7 +11,7 @@ engine:                      # engine settings
     book:
       standard:              # list of book file paths for variant standard
         - Aaricia_2012.bin
-        - engines/Drawkiller_EloZoom_big.bin
+        - Drawkiller_EloZoom_big.bin
 #      atomic:               # list of book file paths for variant atomic
 #        - engines/atomicbook1.bin
 #        - engines/atomicbook2.bin
