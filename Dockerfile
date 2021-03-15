@@ -7,20 +7,23 @@ RUN apt-get update
 RUN apt-get -y install sudo
 RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7572 sudo
 USER OIVAS7572
-ADD /engine/ .
+#ADD /engine/ .
 
 # If you are using docker  
 # change config.yml engine and book to "./name"
 #If you want to run any other commands use "RUN echo OIVAS7572 | sudo -S" before
 
-
-RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
+RUN echo OIVAS7572 | sudo -S wget https://abrok.eu/stockfish/builds/f3b296c2e2061951d366edfbd5287f336e865553/linux64modern/stockfish_21031012_x64_modern.zip -O stockfishdev.zip
+RUN echo OIVAS7572 | sudo -S wget https://tests.stockfishchess.org/api/nn/nn-011f4b2f4629.nnue -O nn-011f4b2f4629.nnue
+RUN echo OIVAS7572 | sudo -S 7z e stockfishdev.zip
+RUN echo OIVAS7572 | sudo -S rm stockfishdev.zip
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1FkYpoSGMh9Yh5VV3QK9y95l7z8rERO7E' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1FkYpoSGMh9Yh5VV3QK9y95l7z8rERO7E" -O Aaricia_2012.7z && rm -rf /tmp/cookies.txt
 RUN echo OIVAS7572 | sudo -S 7z e Aaricia_2012.7z
 RUN echo OIVAS7572 | sudo -S rm Aaricia_2012.7z 
+RUN echo OIVAS7572 | sudo -S chmod 777 ./
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 COPY requirements.txt .
