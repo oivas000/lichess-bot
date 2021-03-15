@@ -26,7 +26,7 @@ engine:                      # engine settings
     Move Overhead: 100        # increase if your bot flags games too often
     Threads: 7                # max CPU threads the engine can use
     Hash: 400                 # max memory (in megabytes) the engine can allocate
-    Clear Hash: true          # Clear the hash table
+#   Clear Hash: true          # Clear the hash table
 #   go_commands:              # additional options to pass to the UCI go command
 #     nodes: 1                # Search so many nodes only.
 #     depth: 5                # Search depth ply only.
@@ -43,7 +43,7 @@ engine:                      # engine settings
 
 abort_time: 30                # time to abort a game in seconds when there is no activity
 fake_think_time: false        # artificially slow down the bot to pretend like it's thinking
-move_overhead: 2000           # increase if your bot flags games too often
+move_overhead: 3000           # increase if your bot flags games too often
 
 challenge:                    # incoming challenges
   concurrency: 1              # number of games to play simultaneously
