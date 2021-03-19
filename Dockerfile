@@ -15,7 +15,7 @@ ADD /engine/ .
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
-RUN echo OIVAS7572 | sudo -S wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1FkYpoSGMh9Yh5VV3QK9y95l7z8rERO7E' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1FkYpoSGMh9Yh5VV3QK9y95l7z8rERO7E" -O Aaricia_2012.7z && rm -rf /tmp/cookies.txt
+RUN echo OIVAS7572 | sudo -S wget --no-check-certificate "https://onedrive.live.com/download?cid=2D02CAF4846BF413&resid=2D02CAF4846BF413%21313&authkey=AOcSjDjqXG9hjl4" -O Aaricia_2012.7z
 RUN echo OIVAS7572 | sudo -S 7z e Aaricia_2012.7z
 RUN echo OIVAS7572 | sudo -S rm Aaricia_2012.7z 
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
