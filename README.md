@@ -27,3 +27,6 @@ OPENING BOOKS:
 - Drawkiller_EloZoom_big.bin
 
 **If you want to run bot localy on PC, read the [lichess-bot manual](https://github.com/ShailChoksi/lichess-bot#lichess-bot).**
+
+### Acknowledgements
+Credits to [ShailChoksi](https://github.com/ShailChoksi/lichess-bot)'s lichess-bot 
