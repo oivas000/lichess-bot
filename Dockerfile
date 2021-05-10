@@ -1,4 +1,4 @@
-FROM debian:10.8-slim
+FROM debian:10.9-slim
 MAINTAINER SAVIO PRINCE
 RUN echo OIVAS7572
 CMD echo OIVAS7572
