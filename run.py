@@ -1,7 +1,3 @@
 import os
 
-def lichess():
-    program = "python3"
-    arguments = ["lichess-bot.py","-u"]
-    print(os.execvp(program, (program,) +  tuple(arguments)))
-lichess()    
+os.system("python3 lichess-bot.py -u")
