@@ -44,12 +44,12 @@ engine:                      # Engine settings
 abort_time: 30               # Time to abort a game in seconds when there is no activity
 fake_think_time: false       # Artificially slow down the bot to pretend like it's thinking
 rate_limiting_delay: 0       # Time (in ms) to delay after sending a move to prevent "Too Many Requests" errors
-move_overhead: 3000          # Increase if your bot flags games too often
+move_overhead: 4000          # Increase if your bot flags games too often
 
 correspondence:
     move_time: 60            # Time in seconds to search in correspondence games
-    checkin_period: 600      # How often to check for opponent moves in correspondence games that have been disconnected from
-    disconnect_time: 300     # Time before disconnecting from a correspondence game
+    checkin_period: 7200     # How often to check for opponent moves in correspondence games that have been disconnected from
+    disconnect_time: 30      # Time before disconnecting from a correspondence game
     ponder: false            # Ponder in correspondence games the bot is connected to
 
 challenge:                   # Incoming challenges
@@ -77,7 +77,7 @@ challenge:                   # Incoming challenges
     - blitz
     - rapid
     - classical
-#   - correspondence
+    - correspondence
   modes:                     # Game modes to accept
     - casual                 # Unrated games
     - rated                  # Rated games - must comment if the engine doesn't try to win
