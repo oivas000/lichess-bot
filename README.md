@@ -10,14 +10,14 @@
 
 ## How to Install In Heroku
 
-- Import or Fork this repository to your Github repository.
+- Import or Fork this repository to your Github.
 - Open config.yml and insert API accses token in to token option and commit changes
-- Install Heroku CLI and create app in Heroku.com.
-- Run this in cmd `heroku stack:set container -a appname` replace app name with your app's name.
+- Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and create app in Heroku.com.
+- Run this in cmd `heroku stack:set container -a appname` replace appname with your Heroku app's name.
 - Connect app with Github and deploy app in Heroku.
-- After deploying turn worker on in Resources menu in heroku. 
+- After deploying turn worker on in Resources menu in Heroku. 
 
-## INFO
+## INFO 
 
 ENGINE:
 - STOCKFISH 13 SSE4.1 + POPCNT
