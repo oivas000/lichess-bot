@@ -1,4 +1,4 @@
-token: "yourtoken"           # Lichess OAuth2 Token
+token: "yourtoken"                  # Lichess OAuth2 Token
 url: "https://lichess.org/"  # Lichess base URL
 
 engine:                      # Engine settings
@@ -26,7 +26,7 @@ engine:                      # Engine settings
   uci_options:               # Arbitrary UCI options passed to the engine
     Move Overhead: 100       # Increase if your bot flags games too often
     Threads: 7               # Max CPU threads the engine can use
-    Hash: 200                # Max memory (in megabytes) the engine can allocate
+    Hash: 128                # Max memory (in megabytes) the engine can allocate
 #   go_commands:             # Additional options to pass to the UCI go command
 #     nodes: 1               # Search so many nodes only.
 #     depth: 5               # Search depth ply only.
@@ -47,9 +47,9 @@ rate_limiting_delay: 0       # Time (in ms) to delay after sending a move to pre
 move_overhead: 4000          # Increase if your bot flags games too often
 
 correspondence:
-    move_time: 60            # Time in seconds to search in correspondence games
-    checkin_period: 7200     # How often to check for opponent moves in correspondence games that have been disconnected from
-    disconnect_time: 10      # Time before disconnecting from a correspondence game
+    move_time: 30            # Time in seconds to search in correspondence games
+    checkin_period: 900      # How often to check for opponent moves in correspondence games that have been disconnected from
+    disconnect_time: 5       # Time before disconnecting from a correspondence game
     ponder: false            # Ponder in correspondence games the bot is connected to
 
 challenge:                   # Incoming challenges
