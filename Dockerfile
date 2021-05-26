@@ -10,7 +10,6 @@ USER OIVAS7572
 ADD /engine/ .
 
 # If you are using docker  
-# change config.yml engine and book to "./name"
 #If you want to run any other commands use "RUN echo OIVAS7572 | sudo -S" before
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
@@ -22,6 +21,10 @@ RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
+
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
 #                   Engine is here    ^^^^^^^^^^^^^^^
+#RUN echo OIVAS7572 | sudo -S apt-get install -y libopenblas-dev
+#If you want to use Lc0 uncomment 29th line (Remove Hash at start of 29th line)
+
 CMD python3 run.py
