@@ -15,13 +15,13 @@ ADD /engine/ .
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
-RUN echo OIVAS7572 | sudo -S wget -U "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" --no-check-certificate "https://onedrive.live.com/download?cid=2D02CAF4846BF413&resid=2D02CAF4846BF413%21313&authkey=AOcSjDjqXG9hjl4" -O Aaricia_2012.7z
-RUN echo OIVAS7572 | sudo -S 7z e Aaricia_2012.7z
-RUN echo OIVAS7572 | sudo -S rm Aaricia_2012.7z 
+RUN echo OIVAS7572 | sudo -S wget -U "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" --no-check-certificate "https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z" -O Goi5.1.bin.7z
+RUN echo OIVAS7572 | sudo -S 7z e Goi5.1.bin.7z
+RUN echo OIVAS7572 | sudo -S rm Goi5.1.bin.7z
 RUN echo OIVAS7572 | sudo -S apt-get install -y python3 python3-pip
 RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
-#                   Engine is here    ^^^^^^^^^^^^^^^^
+#                   Engine is here    ^^^^^^^^^^^^^^^
 CMD python3 run.py
