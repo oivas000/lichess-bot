@@ -24,7 +24,7 @@ RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requiremen
 
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
 #                   Engine is here    ^^^^^^^^^^^^^^^
-#RUN echo OIVAS7572 | sudo -S apt-get install -y libopenblas-dev
+RUN echo OIVAS7572 | sudo -S apt-get install -y libopenblas-dev
 #If you want to use Lc0 uncomment 29th line (Remove Hash at start of 29th line)
 
 CMD python3 run.py
