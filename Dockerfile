@@ -9,8 +9,7 @@ RUN useradd OIVAS7572 && echo "OIVAS7572:OIVAS7572" | chpasswd && adduser OIVAS7
 USER OIVAS7572
 ADD /engine/ .
 
-# If you are using docker  
-#If you want to run any other commands use "RUN echo OIVAS7572 | sudo -S" before
+# If you are using docker and you want to run any other commands use "RUN echo OIVAS7572 | sudo -S" before.
 
 RUN echo OIVAS7572 | sudo -S apt-get install -y wget
 RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
@@ -23,8 +22,8 @@ COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 
 RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
-#                   Engine is here    ^^^^^^^^^^^^^^^
+#                 Engine name is here ^
 #RUN echo OIVAS7572 | sudo -S apt-get install -y libopenblas-dev
-#If you want to use Lc0 uncomment 29th line (Remove Hash at start of 29th line)
+# If you want to use Lc0 uncomment (remove the hash tag '#') the 29th line.
 
 CMD python3 run.py
