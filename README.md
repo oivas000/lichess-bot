@@ -17,7 +17,7 @@
 - Run this in cmd `heroku stack:set container -a appname` replace appname with your Heroku app's name.
 - Go to the `Deploy` tab and click `Connect to GitHub`.
 - Click on `search` and then select your fork of this repository.
-- Then `Enable Automatic Deploys` and then select the `main` branch (which is already done by default usually) and Click `Deploy`.
+- Click `Deploy`.
 - Once it has been deployed, go to `Resources` tab on heroku and enable `worker (python3 lichess-bot.py -u)` dynos. (Do note that if you don't see any dynos in the `Resources` tab, then you must wait for about 5 minutes and then refresh your heroku page.)
 - You're now connected to lichess and awaiting challenges! Your bot is up and ready!
 
