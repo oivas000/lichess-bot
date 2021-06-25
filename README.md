@@ -20,10 +20,10 @@
 You're now connected to lichess and awaiting challenges! Your bot is up and ready!
 
 ## Bot Information
-ENGINE:
+Engine:
 - [Stockfish 13 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_13_linux_x64_modern.zip)
 
-OPENING BOOKS: 
+Opening Books: 
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
 - [Drawkiller_EloZoom_big.bin](/Drawkiller_EloZoom_big.bin)
 
