@@ -1,4 +1,4 @@
-# MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)
+# Maintainer: [OIVAS7572](https://github.com/OIVAS7572)
 [![Python](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Python.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Python.yml)
 [![Docker](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml)
 
@@ -19,7 +19,7 @@
 
 You're now connected to lichess and awaiting challenges! Your bot is up and ready!
 
-## INFO 
+##  Bot Information
 ENGINE:
 - [Stockfish 13 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_13_linux_x64_modern.zip)
 
@@ -27,7 +27,7 @@ OPENING BOOKS:
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
 - [Drawkiller_EloZoom_big.bin](/Drawkiller_EloZoom_big.bin)
 
-**If you want to run bot localy on PC, read the [lichess-bot manual](https://github.com/ShailChoksi/lichess-bot#how-to-install).**
+**If you would like to run bot locally on PC, read the [lichess-bot manual](https://github.com/ShailChoksi/lichess-bot#how-to-install).**
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
