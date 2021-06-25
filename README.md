@@ -19,7 +19,7 @@
 
 You're now connected to lichess and awaiting challenges! Your bot is up and ready!
 
-##  Bot Information
+## Bot Information
 ENGINE:
 - [Stockfish 13 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_13_linux_x64_modern.zip)
 
