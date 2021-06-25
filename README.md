@@ -4,7 +4,7 @@
 
 # lichess-bot
 - A bridge between [Lichess API](https://lichess.org/api#tag/Bot) and bots.
-- This bot is using Docker and is concentrated on Heroku server.
+- This bot is made using Docker and is concentrated on Heroku server.
 
 ## How to Install on Heroku
 - Import or [Fork](https://github.com/OIVAS7572/lichess-bot/fork) this repository to your Github.
