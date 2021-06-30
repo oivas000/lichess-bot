@@ -1,10 +1,10 @@
-### MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)
+**MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)**
 [![Python](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Python.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Python.yml)
 [![Docker](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml)
 
 # lichess-bot
 - A bridge between [Lichess API](https://lichess.org/api#tag/Bot) and bots.
-- This bot is made using Docker and is concentrated on Heroku server.
+- This bot is made with Python and it is running using Docker container and is concentrated on heroku.
 
 ## How to Install on Heroku
 - Import or [Fork](https://github.com/OIVAS7572/lichess-bot/fork) this repository to your Github.
