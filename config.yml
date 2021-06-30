@@ -1,8 +1,8 @@
-token: "yourtoken"                  # Lichess OAuth2 Token
+token: "yourtoken"           # Lichess OAuth2 Token
 url: "https://lichess.org/"  # Lichess base URL
 
 engine:                      # Engine settings
-  dir: "./"                  # DIR containing engines, relative to this project
+  dir: "./engine"            # Directory containing engines, relative to this project
   name: "stockfishmodern"    # Binary name of the engine to use
   protocol: "uci"            # "uci" or "xboard"
   ponder: true               # Think on opponent time
