@@ -112,9 +112,7 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
     correspondence_pinger.start()
     correspondence_queue = manager.Queue()
     correspondence_queue.put("")
-    startup_correspondence_games = [game["gameId"] for game in li.get_ongoing_games() if game["perf"] == 'correspondence']
     wait_for_correspondence_ping = False
-
     busy_processes = 0
     queued_processes = 0
 
@@ -128,6 +126,14 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                 event = control_queue.get()
             except InterruptedError:
                 continue
+
+            if event.get("type") is None:
+                logger.warning("Unable to handle response from lichess.org:")
+                logger.warning(event)
+                if event.get("error") == "Missing scope":
+                    logger.warning('Please check that the API access token for your bot has the scope "Play games with the bot API".')
+                continue
+            
             if event["type"] == "terminated":
                 break
             elif event["type"] == "local_game_done":
@@ -160,16 +166,14 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                     except Exception:
                         pass
             elif event["type"] == "gameStart":
-                game_id = event["game"]["id"]
-                if game_id in startup_correspondence_games:
-                    correspondence_queue.put(game_id)
-                    startup_correspondence_games.remove(game_id)
+                if queued_processes <= 0:
+                    logger.debug("Something went wrong. Game is starting and we don't have a queued process")
                 else:
-                    if queued_processes > 0:
-                        queued_processes -= 1
-                    busy_processes += 1
-                    logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
-                    pool.apply_async(play_game, [li, game_id, control_queue, engine_factory, user_profile, config, challenge_queue, correspondence_queue, logging_queue, game_logging_configurer, logging_level])
+                    queued_processes -= 1
+                busy_processes += 1
+                logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
+                game_id = event["game"]["id"]
+                pool.apply_async(play_game, [li, game_id, control_queue, engine_factory, user_profile, config, challenge_queue, correspondence_queue, logging_queue, game_logging_configurer, logging_level])
 
             if event["type"] == "correspondence_ping" or (event["type"] == "local_game_done" and not wait_for_correspondence_ping):
                 if event["type"] == "correspondence_ping" and wait_for_correspondence_ping:
@@ -221,7 +225,6 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     # Initial response of stream will be the full game info. Store it
     initial_state = json.loads(next(lines).decode('utf-8'))
     game = model.Game(initial_state, user_profile["username"], li.baseUrl, config.get("abort_time", 20))
-
     engine = engine_factory()
     engine.get_opponent_info(game)
     conversation = Conversation(game, engine, li, __version__, challenge_queue)
