@@ -21,8 +21,8 @@ RUN echo OIVAS7572 | sudo -S apt install python3-pip -y
 COPY requirements.txt .
 RUN echo OIVAS7572 | sudo -S python3 -m pip install --no-cache-dir -r requirements.txt
 
-RUN echo OIVAS7572 | sudo -S chmod +x stockfishmodern
-#                 Engine name is here ^
+RUN echo OIVAS7572 | sudo -S chmod +x ./engine/stockfishmodern
+#                          Engine name is here ^
 #RUN echo OIVAS7572 | sudo -S apt-get install -y libopenblas-dev
 # If you want to use Lc0 uncomment (remove the hash tag '#') the 29th line.
 
