@@ -84,16 +84,34 @@ class EngineWrapper:
     def search(self, board, time_limit, ponder, draw_offered):
         result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder, draw_offered=draw_offered)
         self.last_move_info = result.info
-        self.print_stats()
+        self.print_stats(board)
         return result
 
-    def print_stats(self):
-        for line in self.get_stats():
+    def print_stats(self, board):
+        for line in self.get_stats(board):
             logger.info(f"{line}")
 
-    def get_stats(self):
-        info = self.last_move_info
-        stats = ["depth", "nps", "nodes", "score"]
+    def get_stats(self, board, for_chat=False):
+        info = self.last_move_info.copy()
+        if "pv" not in info:
+            info["pv"] = []
+        if for_chat:
+            stats = ["depth", "nps", "nodes", "score", "ponderpv"]
+            bot_stats = [f"{stat}: {info[stat]}" for stat in stats if stat in info]
+            len_bot_stats = len(", ".join(bot_stats)) + 12  # 12 is the length of ', ponderpv: '
+            ponder_pv = board.variation_san(info["pv"])
+            ponder_pv = ponder_pv.split()
+            try:
+                while len(' '.join(ponder_pv)) + len_bot_stats > 140:
+                    ponder_pv.pop()
+                if ponder_pv[-1].endswith('.'):
+                    ponder_pv.pop()
+                info["ponderpv"] = ' '.join(ponder_pv)
+            except IndexError:
+                pass
+        else:
+            stats = ["depth", "nps", "nodes", "score", "ponderpv"]
+            info["ponderpv"] = board.variation_san(info["pv"])
         return [f"{stat}: {info[stat]}" for stat in stats if stat in info]
 
     def get_opponent_info(self, game):

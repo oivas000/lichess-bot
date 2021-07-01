@@ -13,12 +13,12 @@ class Conversation:
 
     command_prefix = "!"
 
-    def react(self, line, game):
+    def react(self, line, game, board):
         logger.info("*** {} [{}] {}: {}".format(self.game.url(), line.room, line.username, line.text.encode("utf-8")))
         if (line.text[0] == self.command_prefix):
-            self.command(line, game, line.text[1:].lower())
+            self.command(line, game, line.text[1:].lower(), board)
 
-    def command(self, line, game, cmd):
+    def command(self, line, game, cmd, board):
         if cmd == "commands" or cmd == "help":
             self.send_reply(line, "Supported commands: !wait, !name, !howto, !eval, !queue")
         elif cmd == "wait" and game.is_abortable():
@@ -27,12 +27,10 @@ class Conversation:
         elif cmd == "name":
             name = game.me.name
             self.send_reply(line, "{} running {} (lichess-bot v{})".format(name, self.engine.name(), self.version))
-        elif cmd == "id":
-            self.send_reply(line, "OIVAS7572")
         elif cmd == "howto":
             self.send_reply(line, "How to run your own bot: Check out 'Lichess Bot API'")
         elif cmd == "eval" and line.room == "spectator":
-            stats = self.engine.get_stats()
+            stats = self.engine.get_stats(board, for_chat=True)
             self.send_reply(line, ", ".join(stats))
         elif cmd == "eval":
             self.send_reply(line, "I don't tell that to my opponent, sorry.")
