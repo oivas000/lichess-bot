@@ -16,6 +16,7 @@ RUN echo OIVAS7572 | sudo -S apt install p7zip-full -y
 RUN echo OIVAS7572 | sudo -S wget -U "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" --no-check-certificate "https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z" -O Goi5.1.bin.7z
 RUN echo OIVAS7572 | sudo -S 7z e Goi5.1.bin.7z
 RUN echo OIVAS7572 | sudo -S rm Goi5.1.bin.7z
+RUN echo OIVAS7572 | sudo -S rm -r engine
 RUN echo OIVAS7572 | sudo -S wget --no-check-certificate "https://abrok.eu/stockfish/builds/773dff020968f7a6f590cfd53e8fd89f12e15e36/linux64modern/stockfish_21070214_x64_modern.zip" -O stockfishmodern.zip
 RUN echo OIVAS7572 | sudo -S 7z e stockfishmodern.zip
 RUN echo OIVAS7572 | sudo -S rm stockfishmodern.zip
