@@ -18,7 +18,7 @@
 **Do note that you could also `Enable Automatic Deploys` with the `master` branch selected if you would like each commit you make to get automatically and easily deployed onto your bot. It is your choice whether you'd like to Enable or Disable Automatic Deploys.**
 - After deploying wait for about 5 minutes till the build finishes and then in the `Resources` tab in heroku turn `worker` dynos. If you do not see any option to enable any dynos, then you'll have to wait for about 5 minutes and then refresh your page on heroku.
 
-You're now connected to lichess and awaiting challenges! Your bot is up and ready!
+**You're now connected to lichess and awaiting challenges! Your bot is up and ready!**
 
 ## Bot Information
 Engine:
@@ -32,3 +32,6 @@ Opening Books:
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
+
+## License
+This code is primarily taken from [lichess-bot by ShailChoksi](https://github.com/ShailChoksi/lichess-bot) and is hence run under the AGPLv3 License (or later at your option). Check out the [LICENSE file](/LICENSE) for full text.
