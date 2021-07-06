@@ -3,6 +3,7 @@ import chess.engine
 import backoff
 import subprocess
 import logging
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ def remove_managed_options(config):
     return {name: value for (name, value) in config.items() if not is_managed(name)}
 
 
-class Termination:
+class Termination(str, Enum):
     MATE = 'mate'
     TIMEOUT = 'outoftime'
     RESIGN = 'resign'
@@ -48,7 +49,7 @@ class Termination:
     DRAW = 'draw'
 
 
-class GameEnding:
+class GameEnding(str, Enum):
     WHITE_WINS = '1-0'
     BLACK_WINS = '0-1'
     DRAW = '1/2-1/2'
@@ -59,14 +60,14 @@ class EngineWrapper:
     def __init__(self, commands, options, stderr):
         pass
 
-    def search_for(self, board, movetime, ponder):
-        return self.search(board, chess.engine.Limit(time=movetime // 1000), ponder)
+    def search_for(self, board, movetime, ponder, draw_offered):
+        return self.search(board, chess.engine.Limit(time=movetime // 1000), ponder, draw_offered)
 
-    def first_search(self, board, movetime):
+    def first_search(self, board, movetime, draw_offered):
         # No pondering after the first move since a different clock is used afterwards.
-        return self.search(board, chess.engine.Limit(time=movetime // 1000), False)
+        return self.search(board, chess.engine.Limit(time=movetime // 1000), False, draw_offered)
 
-    def search_with_ponder(self, board, wtime, btime, winc, binc, ponder):
+    def search_with_ponder(self, board, wtime, btime, winc, binc, ponder, draw_offered):
         cmds = self.go_commands
         movetime = cmds.get("movetime")
         if movetime is not None:
@@ -78,21 +79,39 @@ class EngineWrapper:
                                         depth=cmds.get("depth"),
                                         nodes=cmds.get("nodes"),
                                         time=movetime)
-        return self.search(board, time_limit, ponder)
+        return self.search(board, time_limit, ponder, draw_offered)
 
-    def search(self, board, time_limit, ponder):
-        result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder)
+    def search(self, board, time_limit, ponder, draw_offered):
+        result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder, draw_offered=draw_offered)
         self.last_move_info = result.info
-        self.print_stats()
-        return result.move
+        self.print_stats(board)
+        return result
 
-    def print_stats(self):
-        for line in self.get_stats():
+    def print_stats(self, board):
+        for line in self.get_stats(board):
             logger.info(f"{line}")
 
-    def get_stats(self):
-        info = self.last_move_info
-        stats = ["depth", "nps", "nodes", "score"]
+    def get_stats(self, board, for_chat=False):
+        info = self.last_move_info.copy()
+        if "pv" not in info:
+            info["pv"] = []
+        if for_chat:
+            stats = ["depth", "nps", "nodes", "score", "ponderpv"]
+            bot_stats = [f"{stat}: {info[stat]}" for stat in stats if stat in info]
+            len_bot_stats = len(", ".join(bot_stats)) + 12  # 12 is the length of ', ponderpv: '
+            ponder_pv = board.variation_san(info["pv"])
+            ponder_pv = ponder_pv.split()
+            try:
+                while len(' '.join(ponder_pv)) + len_bot_stats > 140:
+                    ponder_pv.pop()
+                if ponder_pv[-1].endswith('.'):
+                    ponder_pv.pop()
+                info["ponderpv"] = ' '.join(ponder_pv)
+            except IndexError:
+                pass
+        else:
+            stats = ["depth", "nps", "nodes", "score", "ponderpv"]
+            info["ponderpv"] = board.variation_san(info["pv"])
         return [f"{stat}: {info[stat]}" for stat in stats if stat in info]
 
     def get_opponent_info(self, game):
@@ -144,7 +163,7 @@ class XBoardEngine(EngineWrapper):
             options[f"egtpath {egt_type}"] = egt_paths[egt_type]
         self.engine.configure(options)
         self.last_move_info = {}
-        
+
     def report_game_result(self, game, board):
         # Send final moves, if any, to engine
         self.engine.protocol._new(board, None, {})

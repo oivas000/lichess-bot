@@ -25,6 +25,6 @@ COPY requirements.txt .
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 RUN chmod +x stockfishmodern
-# Engine name is here ^^^^^^^^
+# Engine name is here ^^^^^^
 
 CMD python3 run.py
