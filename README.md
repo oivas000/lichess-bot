@@ -21,7 +21,7 @@ You're now connected to lichess and awaiting challenges! Your bot is up and read
 
 ## Bot Information
 Engine:
-- [Stockfish 13 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_13_linux_x64_modern.zip)
+- [Stockfish 14 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_14_linux_x64_modern.zip) with the default [NNUE](https://tests.stockfishchess.org/api/nn/nn-3475407dc199.nnue)
 
 Opening Books: 
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
