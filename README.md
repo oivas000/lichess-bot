@@ -14,14 +14,15 @@
 **Do note that in certain operating systems Heroku CLI doesn't get added to path automatically. If that's the case you'll have to add heroku to your path manually.**
 - Run this command in cmd or powershell `heroku stack:set container -a appname`, where `appname` is replaced with your Heroku app's name.
 - In heroku, in the `Deploy` tab click on `Connect to GitHub` and then click on `search` and select your fork/import of this repository.
-- Now scroll down and under `Manual deploy`, click on `deploy` with the `master` branch selected.
+- Now scroll down and under `Manual deploy`, click on `deploy` with the `master` branch selected. <br/>
+**Do note that you could also `Enable Automatic Deploys` with the `master` branch selected if you would like each commit you make to get automatically and easily deployed onto your bot. It is your choice whether you'd like to Enable or Disable Automatic Deploys.**
 - After deploying wait for about 5 minutes till the build finishes and then in the `Resources` tab in heroku turn `worker` dynos. If you do not see any option to enable any dynos, then you'll have to wait for about 5 minutes and then refresh your page on heroku.
 
 You're now connected to lichess and awaiting challenges! Your bot is up and ready!
 
 ## Bot Information
 Engine:
-- [Stockfish 14 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_14_linux_x64_modern.zip) with the default [NNUE](https://tests.stockfishchess.org/api/nn/nn-3475407dc199.nnue)
+- [Stockfish 14 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_14_linux_x64_modern.zip) with the default [NNUE](https://tests.stockfishchess.org/api/nn/nn-3475407dc199.nnue).
 
 Opening Books: 
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
