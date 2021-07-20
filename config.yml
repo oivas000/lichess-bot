@@ -19,14 +19,14 @@ engine:                      # Engine settings.
 #     Use the same pattern for 'giveaway' (antichess), 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
     min_weight: 10           # Does not select moves with weight below min_weight (min 0, max: 65535).
     selection: "best_move"   # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
-    max_depth: 200           # Half move max depth.
+    max_depth: 250           # Half move max depth.
 # engine_options:            # Any custom command line params to pass to the engine.
 #   cpuct: 3.1
   homemade_options:
 #   Hash: 256  
   uci_options:               # Arbitrary UCI options passed to the engine.
-    Move Overhead: 700       # Increase if your bot flags games too often.
-    Threads: 10               # Max CPU threads the engine can use.
+    Move Overhead: 780       # Increase if your bot flags games too often.
+    Threads: 11               # Max CPU threads the engine can use.
     Hash: 256                # Max memory (in megabytes) the engine can allocate.
 #   Clear Hash: true         # Clear the hash table
 #   go_commands:             # Additional options to pass to the UCI go command.
