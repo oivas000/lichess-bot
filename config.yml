@@ -25,8 +25,8 @@ engine:                      # Engine settings.
   homemade_options:
 #   Hash: 256  
   uci_options:               # Arbitrary UCI options passed to the engine.
-    Move Overhead: 500    # Increase if your bot flags games too often.
-    Threads: 7              # Max CPU threads the engine can use.
+    Move Overhead: 600    # Increase if your bot flags games too often.
+    Threads: 10              # Max CPU threads the engine can use.
     Hash: 256                # Max memory (in megabytes) the engine can allocate.
 #   Clear Hash: true         # Clear the hash table
 #   go_commands:             # Additional options to pass to the UCI go command.
