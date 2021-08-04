@@ -44,9 +44,13 @@ class Conversation:
                 self.send_reply(line, "No challenges queued.")
 
     def send_reply(self, line, reply):
-        self.xhr.chat(self.game.id, line.room, reply)
+    def send_message(self, room, message):
+        if message:
+            self.send_reply(ChatLine({"room": room}), message)
 
 
+class ChatLine:
+    def __init__(self, json):
 class ChatLine:
     def __init__(self, json):
         self.room = json.get("room")
