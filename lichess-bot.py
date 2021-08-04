@@ -242,45 +242,54 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     delay_seconds = config.get("rate_limiting_delay", 0)/1000
     polyglot_cfg = engine_cfg.get("polyglot", {})
 
-    first_move = True
-    correspondence_disconnect_time = 0
-    while not terminated:
-        try:
-            if first_move:
-                upd = game.state
-                first_move = False
-            else:
-                binary_chunk = next(lines)
-                upd = json.loads(binary_chunk.decode('utf-8')) if binary_chunk else None
-
-            u_type = upd["type"] if upd else "ping"
-            if u_type == "chatLine":
-                conversation.react(ChatLine(upd), game)
-            elif u_type == "gameState":
-                game.state = upd
-                board = setup_board(game)
-                if not is_game_over(game) and is_engine_move(game, board):
-                    start_time = time.perf_counter_ns()
-                    fake_thinking(config, board, game)
-                    print_move_number(board)
-                    correspondence_disconnect_time = correspondence_cfg.get("disconnect_time", 300)
-
-                    best_move = get_book_move(board, polyglot_cfg)
-                    if best_move is None:
-                        if len(board.move_stack) < 2:
-                            best_move = choose_first_move(engine, board)
-                        elif is_correspondence:
-                            best_move = choose_move_time(engine, board, correspondence_move_time, can_ponder)
-                        else:
-                            best_move = choose_move(engine, board, game, can_ponder, start_time, move_overhead)
-                    li.make_move(game.id, best_move)
-                    time.sleep(delay_seconds)
-                elif is_game_over(game):
-                    engine.report_game_result(game, board)
-                elif len(board.move_stack) == 0:
-                    correspondence_disconnect_time = correspondence_cfg.get("disconnect_time", 300)
-
-                wb = 'w' if board.turn == chess.WHITE else 'b'
+     
+    greeting_cfg = config.get("greeting", {}) or {}
+    keyword_map = defaultdict(str, me=game.me.name, opponent=game.opponent.name)
+    get_greeting = lambda greeting: str(greeting_cfg.get(greeting, "") or "").format_map(keyword_map)
+    hello = get_greeting("hello")
+    goodbye = get_greeting("goodbye")
+    
+     first_move = True
+     correspondence_disconnect_time = 0
+     while not terminated:
+            try:
+                 if first_move:
+                     upd = game.state
+                    first_move = False
+                else:
+                    binary_chunk = next(lines)
+                    upd = json.loads(binary_chunk.decode('utf-8')) if binary_chunk else None
+            
+                 u_type = upd["type"] if upd else "ping
+                 if u_type == "chatLine":
+                        conversation.react(ChatLine(upd), game)
+                 elif u_type == "gameState":
+                    game.state = upd
+                    board = setup_board(game)
+                     if not is_game_over(game) and is_engine_move(game, board):
+                            start_time = time.perf_counter_ns()
+                            fake_thinking(config, board, game)
+                            print_move_number(board)
+                            correspondence_disconnect_time = correspondence_cfg.get("disconnect_time", 300)
+                            
+                            best_move = get_book_move(board, polyglot_cfg)
+                            if best_move is None:
+                                if len(board.move_stack) < 2:
+                                    conversation.send_message("player", hello)
+                                     best_move = choose_first_move(engine, board)
+                                  elif is_correspondence:
+                                     best_move = choose_move_time(engine, board, correspondence_move_time, can_ponder)
+                                  else:
+                                     best_move = choose_move(engine, board, game, can_ponder, start_time, move_overhead)
+                             li.make_move(game.id, best_move)
+                             time.sleep(delay_seconds)
+                           elif is_game_over(game):
+                               engine.report_game_result(game, board)
+                                conversation.send_message("player", goodbye)
+                           elif len(board.move_stack) == 0:
+                               correspondence_disconnect_time = correspondence_cfg.get("disconnect_time", 300)
+                                
+                                   wb = 'w' if board.turn == chess.WHITE else 'b'
                 game.ping(config.get("abort_time", 20), (upd[f"{wb}time"] + upd[f"{wb}inc"]) / 1000 + 60, correspondence_disconnect_time)
             elif u_type == "ping":
                 if is_correspondence and not is_engine_move(game, board) and game.should_disconnect_now():
@@ -294,7 +303,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
                     if game.is_abortable():
                         li.abort(game.id)
                     break
-        except (HTTPError, ReadTimeout, RemoteDisconnected, ChunkedEncodingError, ConnectionError, ProtocolError):
+              except (HTTPError, ReadTimeout, RemoteDisconnected, ChunkedEncodingError, ConnectionError, ProtocolError):
             if game.id not in (ongoing_game["gameId"] for ongoing_game in li.get_ongoing_games()):
                 break
         except StopIteration:
@@ -453,3 +462,5 @@ if __name__ == "__main__":
         start(li, user_profile, engine_factory, CONFIG, logging_level, args.logfile)
     else:
         logger.error("{} is not a bot account. Please upgrade it to a bot account!".format(user_profile["username"]))
+                                        
+            
