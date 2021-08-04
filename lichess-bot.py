@@ -249,7 +249,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     hello = get_greeting("hello")
     goodbye = get_greeting("goodbye")
     
-     first_move = True
+    first_move = True
      correspondence_disconnect_time = 0
      while not terminated:
             try:
