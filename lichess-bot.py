@@ -252,6 +252,10 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     move_overhead = config.get("move_overhead", 1000)
     delay_seconds = config.get("rate_limiting_delay", 0)/1000
     polyglot_cfg = engine_cfg.get("polyglot", {})
+    
+    greeting_cfg = config.get("greeting", {}) or {}
+    hello = str(greeting_cfg.get("hello", "") or "")
+    goodbye = str(greeting_cfg.get("goodbye", "") or "")
 
     first_move = True
     correspondence_disconnect_time = 0
