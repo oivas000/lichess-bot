@@ -288,6 +288,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
                     if best_move.move is None:
                         draw_offered = check_for_draw_offer(game)
                         if len(board.move_stack) < 2:
+                            conversation.send_message("player", hello)
                             best_move = choose_first_move(engine, board, draw_offered)
                         elif is_correspondence:
                             best_move = choose_move_time(engine, board, correspondence_move_time, can_ponder, draw_offered)
