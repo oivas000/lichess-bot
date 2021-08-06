@@ -20,6 +20,7 @@ from functools import partial
 from requests.exceptions import ChunkedEncodingError, ConnectionError, HTTPError, ReadTimeout
 from urllib3.exceptions import ProtocolError
 from ColorLogger import enable_color_logging
+from collections import defaultdict
 
 logger = logging.getLogger(__name__)
 
@@ -112,9 +113,7 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
     correspondence_pinger.start()
     correspondence_queue = manager.Queue()
     correspondence_queue.put("")
-    startup_correspondence_games = [game["gameId"] for game in li.get_ongoing_games() if game["perf"] == 'correspondence']
     wait_for_correspondence_ping = False
-
     busy_processes = 0
     queued_processes = 0
 
@@ -168,22 +167,17 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                     except Exception:
                         pass
             elif event["type"] == "gameStart":
-                game_id = event["game"]["id"]
-                if game_id in startup_correspondence_games:
-                    logger.info("--- Enqueue {}".format(config["url"] + game_id))
-                    correspondence_queue.put(game_id)
-                    startup_correspondence_games.remove(game_id)
+                if queued_processes <= 0:
+                    logger.debug("Something went wrong. Game is starting and we don't have a queued process")
                 else:
-                    if queued_processes > 0:
-                        queued_processes -= 1
-                    busy_processes += 1
-                    logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
-                    pool.apply_async(play_game, [li, game_id, control_queue, engine_factory, user_profile, config, challenge_queue, correspondence_queue, logging_queue, game_logging_configurer, logging_level])
+                    queued_processes -= 1
+                busy_processes += 1
+                logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
+                game_id = event["game"]["id"]
+                pool.apply_async(play_game, [li, game_id, control_queue, engine_factory, user_profile, config, challenge_queue, correspondence_queue, logging_queue, game_logging_configurer, logging_level])
 
-            is_correspondence_ping = event["type"] == "correspondence_ping" 
-            is_local_game_done = event["type"] == "local_game_done" 
-            if is_correspondence_ping or (is_local_game_done and not wait_for_correspondence_ping):
-                if is_correspondence_ping and wait_for_correspondence_ping:
+            if event["type"] == "correspondence_ping" or (event["type"] == "local_game_done" and not wait_for_correspondence_ping):
+                if event["type"] == "correspondence_ping" and wait_for_correspondence_ping:
                     correspondence_queue.put("")
 
                 wait_for_correspondence_ping = False
@@ -191,11 +185,8 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                     game_id = correspondence_queue.get()
                     # stop checking in on games if we have checked in on all games since the last correspondence_ping
                     if not game_id:
-                        if is_correspondence_ping and correspondence_queue:
-                            correspondence_queue.put("")
-                        else:
-                            wait_for_correspondence_ping = True
-                            break
+                        wait_for_correspondence_ping = True
+                        break
                     else:
                         busy_processes += 1
                         logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
@@ -235,7 +226,6 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     # Initial response of stream will be the full game info. Store it
     initial_state = json.loads(next(lines).decode('utf-8'))
     game = model.Game(initial_state, user_profile["username"], li.baseUrl, config.get("abort_time", 20))
-
     engine = engine_factory()
     engine.get_opponent_info(game)
     conversation = Conversation(game, engine, li, __version__, challenge_queue)
@@ -253,9 +243,14 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     delay_seconds = config.get("rate_limiting_delay", 0)/1000
     polyglot_cfg = engine_cfg.get("polyglot", {})
 
+    greeting_cfg = config.get("greeting", {}) or {}
+    keyword_map = defaultdict(str, me=game.me.name, opponent=game.opponent.name)
+    get_greeting = lambda greeting: str(greeting_cfg.get(greeting, "") or "").format_map(keyword_map)
+    hello = get_greeting("hello")
+    goodbye = get_greeting("goodbye")
+    
     first_move = True
     correspondence_disconnect_time = 0
-    board = None
     while not terminated:
         try:
             if first_move:
@@ -267,10 +262,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
 
             u_type = upd["type"] if upd else "ping"
             if u_type == "chatLine":
-                try:
-                    conversation.react(ChatLine(upd), game, board)
-                except:
-                    pass
+                conversation.react(ChatLine(upd), game)
             elif u_type == "gameState":
                 game.state = upd
                 board = setup_board(game)
@@ -281,21 +273,19 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
                     correspondence_disconnect_time = correspondence_cfg.get("disconnect_time", 300)
 
                     best_move = get_book_move(board, polyglot_cfg)
-                    if best_move.move is None:
-                        draw_offered = check_for_draw_offer(game)
+                    if best_move is None:
                         if len(board.move_stack) < 2:
-                            best_move = choose_first_move(engine, board, draw_offered)
+                            conversation.send_message("player", hello)
+                            best_move = choose_first_move(engine, board)
                         elif is_correspondence:
-                            best_move = choose_move_time(engine, board, correspondence_move_time, can_ponder, draw_offered)
+                            best_move = choose_move_time(engine, board, correspondence_move_time, can_ponder)
                         else:
-                            best_move = choose_move(engine, board, game, can_ponder, draw_offered, start_time, move_overhead)
-                    if best_move.resigned:
-                        li.resign(game.id)
-                    else:
-                        li.make_move(game.id, best_move)
+                            best_move = choose_move(engine, board, game, can_ponder, start_time, move_overhead)
+                    li.make_move(game.id, best_move)
                     time.sleep(delay_seconds)
                 elif is_game_over(game):
                     engine.report_game_result(game, board)
+                    conversation.send_message("player", goodbye)
                 elif len(board.move_stack) == 0:
                     correspondence_disconnect_time = correspondence_cfg.get("disconnect_time", 300)
 
@@ -331,22 +321,21 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     control_queue.put_nowait({"type": "local_game_done"})
 
 
-def choose_move_time(engine, board, search_time, ponder, draw_offered):
+def choose_move_time(engine, board, search_time, ponder):
     logger.info("Searching for time {}".format(search_time))
-    return engine.search_for(board, search_time, ponder, draw_offered)
+    return engine.search_for(board, search_time, ponder)
 
 
-def choose_first_move(engine, board, draw_offered):
+def choose_first_move(engine, board):
     # need to hardcode first movetime (10000 ms) since Lichess has 30 sec limit.
     search_time = 10000
     logger.info("Searching for time {}".format(search_time))
-    return engine.first_search(board, search_time, draw_offered)
+    return engine.first_search(board, search_time)
 
 
 def get_book_move(board, polyglot_cfg):
-    no_book_move = chess.engine.PlayResult(None, None)
     if not polyglot_cfg.get("enabled") or len(board.move_stack) > polyglot_cfg.get("max_depth", 8) * 2 - 1:
-        return no_book_move
+        return None
 
     book_config = polyglot_cfg.get("book", {})
 
@@ -356,7 +345,7 @@ def get_book_move(board, polyglot_cfg):
         if book_config.get("{}".format(board.uci_variant)):
             books = book_config["{}".format(board.uci_variant)]
         else:
-            return no_book_move
+            return None
 
     if isinstance(books, str):
         books = [books]
@@ -377,12 +366,12 @@ def get_book_move(board, polyglot_cfg):
 
         if move is not None:
             logger.info("Got move {} from book {}".format(move, book))
-            return chess.engine.PlayResult(move, None)
+            return move
 
-    return no_book_move
+    return None
 
 
-def choose_move(engine, board, game, ponder, draw_offered, start_time, move_overhead):
+def choose_move(engine, board, game, ponder, start_time, move_overhead):
     wtime = game.state["wtime"]
     btime = game.state["btime"]
     pre_move_time = int((time.perf_counter_ns() - start_time) / 1000000)
@@ -392,11 +381,7 @@ def choose_move(engine, board, game, ponder, draw_offered, start_time, move_over
         btime = max(0, btime - move_overhead - pre_move_time)
 
     logger.info("Searching for wtime {} btime {}".format(wtime, btime))
-    return engine.search_with_ponder(board, wtime, btime, game.state["winc"], game.state["binc"], ponder, draw_offered)
-
-
-def check_for_draw_offer(game):
-    return game.state[f'{game.opponent_color[0]}draw']
+    return engine.search_with_ponder(board, wtime, btime, game.state["winc"], game.state["binc"], ponder)
 
 
 def fake_thinking(config, board, game):
