@@ -59,7 +59,7 @@ correspondence:
 
 challenge:                   # Incoming challenges.
   concurrency: 1             # Number of games to play simultaneously.
-  sort_by: "first"           # Possible values: "best" and "first".
+  sort_by: "best"           # Possible values: "best" and "first".
   accept_bot: true           # Accepts challenges coming from other bots.
   only_bot: false            # Accept challenges by bots only.
   max_increment: 50          # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
