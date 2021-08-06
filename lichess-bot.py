@@ -20,6 +20,7 @@ from functools import partial
 from requests.exceptions import ChunkedEncodingError, ConnectionError, HTTPError, ReadTimeout
 from urllib3.exceptions import ProtocolError
 from ColorLogger import enable_color_logging
+from collections import defaultdict
 
 logger = logging.getLogger(__name__)
 
