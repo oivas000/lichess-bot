@@ -48,7 +48,9 @@ class Conversation:
 
 
 class ChatLine:
+    class ChatLine:
     def __init__(self, json):
         self.room = json.get("room")
         self.username = json.get("username")
         self.text = json.get("text")
+
