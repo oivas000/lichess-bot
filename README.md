@@ -39,7 +39,7 @@ Firstly, you have to remove the engine used. To do this you need to delete the [
 Then you need to download the binary of the chess engine you want to used and in your GitHub repository click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded.
 
 **Note: Rename the engine you downloaded to `chess-engine` and make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).** <br/>
-**Also if your engine file is too huge, you can use [Git lfs]() to upload that file or use a docker connect (similar to what is done [here](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L18-L22)).**
+**Also if your engine file is too huge, you can use [Git lfs](https://git-lfs.github.com) to upload that file or use a docker connect (similar to what is done [here](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L18-L22), but you might want to make changes to the [22nd line](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L22)).**
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
