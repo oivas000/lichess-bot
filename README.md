@@ -32,14 +32,22 @@ Opening Books:
 
 ## How to change the engine used?
 
-Changing the engine to an engine of your preference is simple. Just follow the following steps:
+**Changing the engine to an engine of your preference is simple. Just follow the following steps:**
 
-Firstly, you have to remove the engine used. To do this you need to delete the [lines 16 to 18 in the dockerfile](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L16-L18) (or you can put `#` at the start of these lines).
+- Firstly, you have to remove the engine used. To do this you need to put `#` at the start of these [lines 16 to 18 in the dockerfile](/Dockerfile#L16-L18) (or you can delete those lines).
 
-Then you need to download the binary of the chess engine you want to used and in your GitHub repository click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded.
+- Then you need to download the binary of the chess engine you want to used and in your GitHub repository, Click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded.
 
-**Note: Rename the engine you downloaded to `chess-engine` and make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).** <br/>
-**Also if your engine file is too huge, you can use [Git lfs](https://git-lfs.github.com) to upload that file or use a docker connect (similar to what is done [here](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L16-L18), but you might want to make changes to the [18th line](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L22) if the engine you have added through the docker connect doesn't use the name `stockfish`).**
+Note: Make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).
+
+- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [23rd line of Dockerfile](/Dockerfile#L23) to your binary file's name.
+
+#### How to use Stockfish dev
+
+- You can reset link in [16th line in Dockerfile](/Dockerfile#L16) to the Stockfish dev binary link from [abrok.eu/stockfish](http://abrok.eu/stockfish/v)
+(You can set this `http://abrok.eu/stockfish/latest/linux/stockfish_x64_modern.zip` link for latest Stockfish dev binary)
+
+**Note: You need to use `Linux x64 for modern computers` binary for Heroku.**
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
