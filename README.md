@@ -22,7 +22,7 @@ Note: You could also `Enable Automatic Deploys` with the `master` branch selecte
 
 ## Bot Information
 Engine:
-- [Stockfish dev SSE4.1 + POPCNT](https://abrok.eu/stockfish/builds/dabaf2220fe0c77400a5f71a91952f510e6a126b/linux64modern/stockfish_21080516_x64_modern.zip) with the default NNUE.
+- [Stockfish 14 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_14_linux_x64_modern.zip) with the default [NNUE](https://tests.stockfishchess.org/api/nn/nn-3475407dc199.nnue).
 
 Opening Books: 
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
@@ -34,12 +34,12 @@ Opening Books:
 
 Changing the engine to an engine of your preference is simple. Just follow the following steps:
 
-Firstly, you have to remove the engine used. To do this you need to delete the [lines 18 to 22 in the dockerfile](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L18-L22) (in certain cases you might want to keep those lines).
+Firstly, you have to remove the engine used. To do this you need to delete the [lines 16 to 18 in the dockerfile](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L16-L18) (or you can put `#` at the start of these lines).
 
 Then you need to download the binary of the chess engine you want to used and in your GitHub repository click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded.
 
 **Note: Rename the engine you downloaded to `chess-engine` and make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).** <br/>
-**Also if your engine file is too huge, you can use [Git lfs](https://git-lfs.github.com) to upload that file or use a docker connect (similar to what is done [here](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L18-L22), but you might want to make changes to the [22nd line](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L22)).**
+**Make engine name changes to the [23nd line](https://github.com/OIVAS7572/lichess-bot/blob/master/Dockerfile#L23)in Dockerfile.**
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
