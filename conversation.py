@@ -35,7 +35,7 @@ class Conversation:
             stats = self.engine.get_stats(board, for_chat=True)
             self.send_reply(line, ", ".join(stats))
         elif cmd == "eval":
-            self.send_reply(line, "I don't tell that to my opponent, sorry.")
+            self.send_reply(line, "That's the evaluation of the position according to my engine!")
         elif cmd == "queue":
             if self.challengers:
                 challengers = ", ".join(["@" + challenger.challenger_name for challenger in reversed(self.challengers)])
