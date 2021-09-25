@@ -112,9 +112,7 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
     correspondence_pinger.start()
     correspondence_queue = manager.Queue()
     correspondence_queue.put("")
-    startup_correspondence_games = [game["gameId"] for game in li.get_ongoing_games() if game["perf"] == 'correspondence']
     wait_for_correspondence_ping = False
-
     busy_processes = 0
     queued_processes = 0
 
@@ -168,22 +166,17 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                     except Exception:
                         pass
             elif event["type"] == "gameStart":
-                game_id = event["game"]["id"]
-                if game_id in startup_correspondence_games:
-                    logger.info("--- Enqueue {}".format(config["url"] + game_id))
-                    correspondence_queue.put(game_id)
-                    startup_correspondence_games.remove(game_id)
+                if queued_processes <= 0:
+                    logger.debug("Something went wrong. Game is starting and we don't have a queued process")
                 else:
-                    if queued_processes > 0:
-                        queued_processes -= 1
-                    busy_processes += 1
-                    logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
-                    pool.apply_async(play_game, [li, game_id, control_queue, engine_factory, user_profile, config, challenge_queue, correspondence_queue, logging_queue, game_logging_configurer, logging_level])
+                    queued_processes -= 1
+                busy_processes += 1
+                logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
+                game_id = event["game"]["id"]
+                pool.apply_async(play_game, [li, game_id, control_queue, engine_factory, user_profile, config, challenge_queue, correspondence_queue, logging_queue, game_logging_configurer, logging_level])
 
-            is_correspondence_ping = event["type"] == "correspondence_ping" 
-            is_local_game_done = event["type"] == "local_game_done" 
-            if is_correspondence_ping or (is_local_game_done and not wait_for_correspondence_ping):
-                if is_correspondence_ping and wait_for_correspondence_ping:
+            if event["type"] == "correspondence_ping" or (event["type"] == "local_game_done" and not wait_for_correspondence_ping):
+                if event["type"] == "correspondence_ping" and wait_for_correspondence_ping:
                     correspondence_queue.put("")
 
                 wait_for_correspondence_ping = False
@@ -191,11 +184,8 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                     game_id = correspondence_queue.get()
                     # stop checking in on games if we have checked in on all games since the last correspondence_ping
                     if not game_id:
-                        if is_correspondence_ping and correspondence_queue:
-                            correspondence_queue.put("")
-                        else:
-                            wait_for_correspondence_ping = True
-                            break
+                        wait_for_correspondence_ping = True
+                        break
                     else:
                         busy_processes += 1
                         logger.info("--- Process Used. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
@@ -235,7 +225,6 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     # Initial response of stream will be the full game info. Store it
     initial_state = json.loads(next(lines).decode('utf-8'))
     game = model.Game(initial_state, user_profile["username"], li.baseUrl, config.get("abort_time", 20))
-
     engine = engine_factory()
     engine.get_opponent_info(game)
     conversation = Conversation(game, engine, li, __version__, challenge_queue)
@@ -255,7 +244,6 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
 
     first_move = True
     correspondence_disconnect_time = 0
-    board = None
     while not terminated:
         try:
             if first_move:
@@ -267,10 +255,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
 
             u_type = upd["type"] if upd else "ping"
             if u_type == "chatLine":
-                try:
-                    conversation.react(ChatLine(upd), game, board)
-                except:
-                    pass
+                conversation.react(ChatLine(upd), game)
             elif u_type == "gameState":
                 game.state = upd
                 board = setup_board(game)

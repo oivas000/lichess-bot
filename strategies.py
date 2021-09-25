@@ -44,9 +44,8 @@ class MinimalEngine(EngineWrapper):
     however you can also change other methods like
     `notify`, `first_search`, `get_time_control`, etc.
     """
-    def __init__(self, commands, options, stderr, name=None):
-        super().__init__(commands, options, stderr)
-        self.go_commands = options.pop("go_commands", {}) or {}
+    def __init__(self, *args, name=None):
+        super().__init__(*args)
 
         self.engine_name = self.__class__.__name__ if name is None else name
 
@@ -56,20 +55,15 @@ class MinimalEngine(EngineWrapper):
             "name": self.engine_name
         }
 
-    def search(self, board, timeleft, ponder, draw_offered):
-        """
-        This method is meant to be overridden,
-        it defines engines' implementation.
-         
-        --- Parameters ---
-        board : chess.Board
-        timeleft : chess.engine.Limit
-        ponder : boolean
-           Whether to think on opponent's time
+    def search_with_ponder(self, board, wtime, btime, winc, binc, ponder, draw_offered):
+        timeleft = 0
+        if board.turn:
+            timeleft = wtime
+        else:
+            timeleft = btime
+        return self.search(board, timeleft, ponder, draw_offered)
 
-        --- Returns ---
-        An instance of `chess.engine.PlayResult`
-        """
+    def search(self, board, timeleft, ponder, draw_offered):
         raise NotImplementedError("The search method is not implemented")
 
     def notify(self, method_name, *args, **kwargs):
