@@ -28,7 +28,7 @@ Opening Books:
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
 - [Drawkiller_EloZoom_big.bin](/Drawkiller_EloZoom_big.bin)
 
-##### Keep you Forks or Imports Up-to-Date & Check the other Branches
+**Keep you Forks or Imports Up-to-Date & Check the other Branches in this Repository**
 
 **If you would like to run bot locally on PC, read the [lichess-bot manual](https://github.com/ShailChoksi/lichess-bot#how-to-install).**
 
