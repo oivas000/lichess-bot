@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN apt update > aptud.log && apt install -y wget python3 python3-pip p7zip-full > apti.log
 RUN python3 -m pip install --no-cache-dir -r requirements.txt > pip.log
 
-RUN wget --no-check-certificate -nv "https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z" -O Goi5.1.bin.7z \
+RUN wget --no-check-certificate -nv "https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/MEGA/Goi5.1.bin.7z" -O Goi5.1.bin.7z \
 && 7z e Goi5.1.bin.7z && rm Goi5.1.bin.7z
 
 RUN wget --no-check-certificate -nv "https://abrok.eu/stockfish/builds/773dff020968f7a6f590cfd53e8fd89f12e15e36/linux64modern/stockfish_21070214_x64_modern.zip" -O chess-engine.zip \
