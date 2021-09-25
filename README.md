@@ -28,6 +28,8 @@ Opening Books:
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
 - [Drawkiller_EloZoom_big.bin](/Drawkiller_EloZoom_big.bin)
 
+##### Keep you Forks or Imports Up-to-Date & Check the other Branches
+
 **If you would like to run bot locally on PC, read the [lichess-bot manual](https://github.com/ShailChoksi/lichess-bot#how-to-install).**
 
 ## How to change the engine used?
@@ -44,7 +46,7 @@ Note: Make sure you download a linux binary that is supported by heroku (by defa
 
 #### How to use Stockfish dev
 
-- You can reset link in [16th line in Dockerfile](/Dockerfile#L16) to the Stockfish dev binary link from [abrok.eu/stockfish](http://abrok.eu/stockfish/v)
+- You can reset link in [15th line in Dockerfile](/Dockerfile#L15) to the Stockfish dev binary link from [abrok.eu/stockfish](http://abrok.eu/stockfish/v)
 (You can set this `http://abrok.eu/stockfish/latest/linux/stockfish_x64_modern.zip` link for latest Stockfish dev binary)
 
 **Note: You need to use `Linux x64 for modern computers` binary for Heroku.**
