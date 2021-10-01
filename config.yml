@@ -22,23 +22,23 @@ engine:                      # Engine settings.
     max_depth: 100           # Half move max depth.
   online_moves:
     chessdb_book:
-      enabled: false
+      enabled: true
       min_time: 20
       move_quality: "best"     # One of "all", "good", "best"
       min_depth: 30            # Only for move_quality: "best"
       contribute: true
     lichess_cloud_analysis:
-      enabled: false
+      enabled: true
       min_time: 20
-      move_quality: "good"     # One of "good", "best"
+      move_quality: "best"     # One of "good", "best"
       max_score_difference: 50 # Only for move_quality: "good". The maximum score difference (in cp) between the best move and the other moves.
       min_depth: 30
       min_knodes: 0
     online_egtb:
-      enabled: false
+      enabled: true
       min_time: 20
       max_pieces: 7
-      source: "lichess"        # One of "lichess", "chessdb"
+      source: "chessdb"        # One of "lichess", "chessdb"
       move_quality: "best"     # One of "good", "best"
 # engine_options:            # Any custom command line params to pass to the engine.
 #   cpuct: 3.1
