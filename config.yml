@@ -112,5 +112,5 @@ greeting:
     #   {opponent} to insert opponent's name
     #   {me} to insert bot's name
     # Any other words in curly braces will be removed.
-    hello: "Hi! I'm {me}. Good luck!" # Message to send to chat at the start of a game
+    hello: "Hi! I'm {me}. Good luck! To view list of commands do type '!help' or '!commands'" # Message to send to chat at the start of a game
     goodbye: "Good game!" # Message to send to chat at the end of a game

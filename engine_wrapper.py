@@ -3,6 +3,7 @@ import chess.engine
 import backoff
 import subprocess
 import logging
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ def remove_managed_options(config):
     return {name: value for (name, value) in config.items() if not is_managed(name)}
 
 
-class Termination:
+class Termination(str, Enum):
     MATE = 'mate'
     TIMEOUT = 'outoftime'
     RESIGN = 'resign'
@@ -48,11 +49,15 @@ class Termination:
     DRAW = 'draw'
 
 
-class GameEnding:
+class GameEnding(str, Enum):
     WHITE_WINS = '1-0'
     BLACK_WINS = '0-1'
     DRAW = '1/2-1/2'
     INCOMPLETE = '*'
+
+
+PONDERPV_CHARACTERS = 12  # the length of ', ponderpv: '
+MAX_CHAT_MESSAGE_LEN = 140  # maximum characters in a chat message
 
 
 class EngineWrapper:
@@ -83,16 +88,34 @@ class EngineWrapper:
     def search(self, board, time_limit, ponder, draw_offered):
         result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder, draw_offered=draw_offered)
         self.last_move_info = result.info
-        self.print_stats()
+        self.print_stats(board)
         return result
 
-    def print_stats(self):
-        for line in self.get_stats():
+    def print_stats(self, board):
+        for line in self.get_stats(board):
             logger.info(f"{line}")
 
-    def get_stats(self):
-        info = self.last_move_info
-        stats = ["depth", "nps", "nodes", "score"]
+    def get_stats(self, board, for_chat=False):
+        info = self.last_move_info.copy()
+        if "pv" not in info:
+            info["pv"] = []
+        if for_chat:
+            stats = ["depth", "nps", "nodes", "score", "ponderpv"]
+            bot_stats = [f"{stat}: {info[stat]}" for stat in stats if stat in info]
+            len_bot_stats = len(", ".join(bot_stats)) + PONDERPV_CHARACTERS
+            ponder_pv = board.variation_san(info["pv"])
+            ponder_pv = ponder_pv.split()
+            try:
+                while len(" ".join(ponder_pv)) + len_bot_stats > MAX_CHAT_MESSAGE_LEN:
+                    ponder_pv.pop()
+                if ponder_pv[-1].endswith("."):
+                    ponder_pv.pop()
+                info["ponderpv"] = " ".join(ponder_pv)
+            except IndexError:
+                pass
+        else:
+            stats = ["depth", "nps", "nodes", "score", "ponderpv"]
+            info["ponderpv"] = board.variation_san(info["pv"])
         return [f"{stat}: {info[stat]}" for stat in stats if stat in info]
 
     def get_opponent_info(self, game):
