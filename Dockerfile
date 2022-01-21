@@ -13,10 +13,9 @@ RUN wget --no-check-certificate -nv "https://gitlab.com/OIVAS7572/Goi5.1.bin/-/r
 && 7z e Goi5.1.bin.7z && rm Goi5.1.bin.7z
 
 RUN wget --no-check-certificate -nv "https://abrok.eu/stockfish/builds/7262fd5d14810b7b495b5038e348a448fda1bcc3/linux64modern/stockfish_21102807_x64_modern.zip" -O chess-engine.zip \
-#&& wget --no-check-certificate -nv "https://tests.stockfishchess.org/api/nn/nn-3475407dc199.nnue" -O nn-3475407dc199.nnue \
 && 7z e chess-engine.zip && rm chess-engine.zip && mv stockfish* chess-engine
 
 RUN chmod +x chess-engine
-# Engine name is here ^^^^^^
+#Engine name ^^^^^^^^^^^^
 
 CMD python3 lichess-bot.py -u
