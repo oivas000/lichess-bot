@@ -36,13 +36,13 @@ Opening Books:
 
 **Changing the engine to an engine of your preference is simple. Just follow the following steps:**
 
-- Firstly, you have to remove the engine used. To do this you need to put `#` at the start of these [lines 15 to 17 in the dockerfile](/Dockerfile#L15-L17) (or you can delete those lines).
+- Firstly, you have to remove the engine used. To do this you need to put `#` at the start of these [lines 15 to 16 in the dockerfile](/Dockerfile#L15-L16) (or you can delete those lines).
 
 - Then you need to download the binary of the chess engine you want to used and in your GitHub repository, Click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded.
 
 Note: Make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).
 
-- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [19th line of Dockerfile](/Dockerfile#L19) to your binary file's name.
+- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [18th line of Dockerfile](/Dockerfile#L18) to your binary file's name.
 
 #### How to use Stockfish dev
 
