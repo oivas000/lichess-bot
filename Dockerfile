@@ -2,7 +2,7 @@ FROM debian:stable-slim
 MAINTAINER OIVAS7572
 RUN echo OIVAS7572
 COPY . .
-COPY requirements.txt .
+COPY test_bot .
 
 # If you want to run any other commands use "RUN" before.
 

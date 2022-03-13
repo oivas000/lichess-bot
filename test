@@ -1,0 +1,22 @@
+#!/bin/bash
+start(){
+docker build -t bot ./
+docker run -d --name bot bot
+echo "Successfully Builded & Running. Logs are here:"
+docker logs --follow bot
+}
+stop(){
+docker stop bot
+docker rm bot
+docker rmi bot
+echo "Successfully stoped & removed"
+}
+if [[ $1 = start ]]
+then
+    start
+elif [[ $1 = stop ]]
+then
+    stop
+else
+    echo "Wrong Arguments. Type start or stop."
+fi
