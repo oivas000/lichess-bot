@@ -4,9 +4,9 @@ idna==3.3
 chess==1.8.0
 PyYAML>=5.4.1
 requests>=2.25.1
-urllib3==1.26.8
+urllib3==1.26.9
 backoff==1.11.1
 
 # Requirements for tests
-pytest==7.0.1
+pytest==7.1.0
 pytest-timeout==2.1.0
