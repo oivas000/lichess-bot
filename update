@@ -1,93 +1,34 @@
 #!/bin/bash
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/ColorLogger.py > ColorLogger.py
+
+Updated () {
+  echo "Updated $1"
+}
+Failed () {
+  echo "Updation of '$1' failed exitcode:$?"
+}
+
+Update () {
+curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/$1 > $1
 if [[ $? = 0 ]]
 then
-  echo "Updated ColorLogger.py"
+  Updated $1
 else
-  echo "Updation of 'ColorLogger.py' failed exitcode:"$?
+  Failed $1
 fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/config.py > config.py
-if [[ $? = 0 ]]
-then
-  echo "Updated config.py"
-else
-  echo "Updation of 'config.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/conversation.py > conversation.py
-if [[ $? = 0 ]]
-then
-  echo "Updated conversation.py"
-else
-  echo "Updation of 'conversation.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/engine_wrapper.py > engine_wrapper.py
-if [[ $? = 0 ]]
-then
-  echo "Updated engine_wrapper.py"
-else
-  echo "Updation of 'engine_wrapper.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/lichess-bot.py > lichess-bot.py
-if [[ $? = 0 ]]
-then
-  echo "Updated lichess-bot.py"
-else
-  echo "Updation of 'lichess-bot.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/lichess.py > lichess.py
-if [[ $? = 0 ]]
-then
-  echo "Updated lichess.py"
-else
-  echo "Updation of 'lichess.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/logging_pool.py > logging_pool.py
-if [[ $? = 0 ]]
-then
-  echo "Updated logging_pool.py"
-else
-  echo "Updation of 'logging_pool.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/model.py > model.py
-if [[ $? = 0 ]]
-then
-  echo "Updated model.py"
-else
-  echo "Updation of 'model.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/requirements.txt > requirements.txt
-if [[ $? = 0 ]]
-then
-  echo "Updated requirements.txt"
-else
-  echo "Updation of 'requirements.txt' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/test_bot/__init__.py > test_bot/__init__.py
-if [[ $? = 0 ]]
-then
-  echo "Updated test_bot/__init__.py"
-else
-  echo "Updation of 'test_bot/__init__.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/test_bot/conftest.py > test_bot/conftest.py
-if [[ $? = 0 ]]
-then
-  echo "Updated test_bot/conftest.py"
-else
-  echo "Updation of 'test_bot/conftest.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/test_bot/lichess.py > test_bot/lichess.py
-if [[ $? = 0 ]]
-then
-  echo "Updated test_bot/lichess.py"
-else
-  echo "Updation of 'test_bot/lichess.py' failed exitcode:"$?
-fi
-curl -sf https://raw.githubusercontent.com/ShailChoksi/lichess-bot/master/test_bot/test_bot.py > test_bot/test_bot.py
-if [[ $? = 0 ]]
-then
-  echo "Updated test_bot/test_bot.py"
-else
-  echo "Updation of 'test_bot/test_bot.py' failed exitcode:"$?
-fi
+}
+
+Update ColorLogger.py
+Update config.py
+Update conversation.py
+Update engine_wrapper.py
+Update lichess-bot.py
+Update lichess.py
+Update logging_pool.py
+Update model.py
+Update requirements.txt
+Update test_bot/__init__.py
+Update test_bot/conftest.py
+Update test_bot/lichess.py
+Update test_bot/test_bot.py
+sed -i "s/config.yml.default/config.yml/" test_bot/test_bot.py 
 echo "Please update 'config.yml' & this script manually."
