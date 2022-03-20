@@ -26,6 +26,7 @@ Update lichess.py
 Update logging_pool.py
 Update model.py
 Update requirements.txt
+Update strategies.py
 Update test_bot/__init__.py
 Update test_bot/conftest.py
 Update test_bot/lichess.py
