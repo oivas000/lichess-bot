@@ -187,7 +187,7 @@ def test_sf():
     if os.path.exists("logs"):
         shutil.rmtree("logs")
     os.mkdir("logs")
-    with open("./config.yml") as file:
+    with open("./config.yml.default") as file:
         CONFIG = yaml.safe_load(file)
     CONFIG["token"] = ""
     CONFIG["engine"]["dir"] = "./TEMP/"
@@ -210,7 +210,7 @@ def test_lc0():
     if os.path.exists("logs"):
         shutil.rmtree("logs")
     os.mkdir("logs")
-    with open("./config.yml") as file:
+    with open("./config.yml.default") as file:
         CONFIG = yaml.safe_load(file)
     CONFIG["token"] = ""
     CONFIG["engine"]["dir"] = "./TEMP/"
@@ -236,7 +236,7 @@ def test_sjeng():
     if os.path.exists("logs"):
         shutil.rmtree("logs")
     os.mkdir("logs")
-    with open("./config.yml") as file:
+    with open("./config.yml.default") as file:
         CONFIG = yaml.safe_load(file)
     CONFIG["token"] = ""
     CONFIG["engine"]["dir"] = "./TEMP/"
@@ -268,7 +268,7 @@ def test_homemade():
     if os.path.exists("logs"):
         shutil.rmtree("logs")
     os.mkdir("logs")
-    with open("./config.yml") as file:
+    with open("./config.yml.default") as file:
         CONFIG = yaml.safe_load(file)
     CONFIG["token"] = ""
     CONFIG["engine"]["name"] = "Stockfish"

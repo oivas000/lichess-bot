@@ -1,6 +1,8 @@
+# lichess-bot
 **MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)**
 
-[![Python](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Python.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Python.yml)
+[![Python Build](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-build.yml/badge.svg)](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-build.yml)
+[![Python Test](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-test.yml/badge.svg)](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-test.yml)
 [![Docker](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml)
 
 # lichess-bot
@@ -26,7 +28,7 @@ Engine:
 
 Opening Books: 
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
-- [Drawkiller_EloZoom_big.bin](/Drawkiller_EloZoom_big.bin)
+- [Drawkiller_EloZoom_big.bin](engines/books/Drawkiller_EloZoom_big.bin)
 
 **Keep you Forks or Imports Up-to-Date & Check the other Branches in this Repository**
 
@@ -36,20 +38,10 @@ Opening Books:
 
 **Changing the engine to an engine of your preference is simple. Just follow the following steps:**
 
-- Firstly, you have to remove the engine used. To do this you need to put `#` at the start of these [lines 15 to 16 in the dockerfile](/Dockerfile#L15-L16) (or you can delete those lines).
-
-- Then you need to download the binary of the chess engine you want to used and in your GitHub repository, Click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded.
-
+- Firstly, you have to remove the engine used. To do this you need to put `#` at the start of these [lines 14 to 15 in the dockerfile](/Dockerfile#L14-L15) (or you can delete those lines).
+- Then you need to download the binary of the chess engine you want to used and in your GitHub repository, Click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded. <br/>
 Note: Make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).
-
-- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [18th line of Dockerfile](/Dockerfile#L18) to your binary file's name.
-
-#### How to use Stockfish dev
-
-- You can reset link in [15th line in Dockerfile](/Dockerfile#L15) to the Stockfish dev binary link from [abrok.eu/stockfish](http://abrok.eu/stockfish/v)
-(You can set this `http://abrok.eu/stockfish/latest/linux/stockfish_x64_modern.zip` link for latest Stockfish dev binary)
-
-**Note: You need to use `Linux x64 for modern computers` binary for Heroku.**
+- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [17th line of Dockerfile](/Dockerfile#L17) to your binary file's name.
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
