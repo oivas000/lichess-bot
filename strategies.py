@@ -45,8 +45,8 @@ class MinimalEngine(EngineWrapper):
     however you can also change other methods like
     `notify`, `first_search`, `get_time_control`, etc.
     """
-    def __init__(self, commands, options, stderr, draw_or_resign, name=None):
-        super().__init__(commands, options, stderr, draw_or_resign)
+    def __init__(self, commands, options, stderr, draw_or_resign, name=None, **popen_args):
+        super().__init__(options, draw_or_resign)
 
         self.engine_name = self.__class__.__name__ if name is None else name
 
@@ -66,7 +66,7 @@ class MinimalEngine(EngineWrapper):
     def notify(self, method_name, *args, **kwargs):
         """
         The EngineWrapper class sometimes calls methods on "self.engine".
-        "self.engine" is a filler property that notifies <self> 
+        "self.engine" is a filler property that notifies <self>
         whenever an attribute is called.
 
         Nothing happens unless the main engine does something.
