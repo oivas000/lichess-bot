@@ -1,8 +1,8 @@
 # lichess-bot
 **MAINTAINER [OIVAS7572](https://github.com/OIVAS7572)**
 
-[![Python Build](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-build.yml/badge.svg)](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-build.yml)
-[![Python Test](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-test.yml/badge.svg)](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-test.yml)
+[![Python Build](https://github.com/OIVAS7572/lichess-bot/actions/workflows/python-build.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/python-build.yml)
+[![Python Test](https://github.com/OIVAS7572/lichess-bot/actions/workflows/python-test.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/python-test.yml)
 [![Docker](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml/badge.svg)](https://github.com/OIVAS7572/lichess-bot/actions/workflows/Docker.yml)
 
 # lichess-bot
