@@ -15,16 +15,14 @@
 - Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and [create a new app](https://dashboard.heroku.com/new-app) in Heroku. <br/>
 **Do note that in certain operating systems Heroku CLI doesn't get added to path automatically. If that's the case you'll have to add heroku to your path manually.**
 - Run this command in cmd or powershell `heroku stack:set container -a appname`, where `appname` is replaced with your Heroku app's name.
-- In heroku, in the `Deploy` tab click on `Connect to GitHub` and then click on `search` and select your fork/import of this repository.
-- Now scroll down and under `Manual deploy`, click on `deploy` with the `master` branch selected. <br/> <br/>
-Note: You could also `Enable Automatic Deploys` with the `master` branch selected if you would like each commit you make to get automatically and easily deployed onto your bot. It is your choice whether you'd like to Enable or Disable Automatic Deploys.
+- [Deploy your repository to heroku](https://devcenter.heroku.com/articles/git)
 - After deploying wait for about 5 minutes till the build finishes and then in the `Resources` tab in heroku turn `worker` dynos. If you do not see any option to enable any dynos, then you'll have to wait for about 5 minutes and then refresh your page on heroku.
 
 **You're now connected to lichess and awaiting challenges! Your bot is up and ready!**
 
 ## Bot Information
 Engine:
-- [Stockfish 14 SSE4.1 + POPCNT](https://stockfishchess.org/files/stockfish_14_linux_x64_modern.zip) with the default NNUE.
+- [Stockfish 15](https://stockfishchess.org/blog/2022/stockfish-15/) with the default NNUE.
 
 Opening Books: 
 - [Goi5.1.bin](https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/master/Goi5.1.bin.7z)
@@ -38,10 +36,10 @@ Opening Books:
 
 **Changing the engine to an engine of your preference is simple. Just follow the following steps:**
 
-- Firstly, you have to remove the engine used. To do this you need to put `#` at the start of these [lines 14 to 15 in the dockerfile](/Dockerfile#L14-L15) (or you can delete those lines).
-- Then you need to download the binary of the chess engine you want to used and in your GitHub repository, Click on `Add files` and the click `Upload files` and upload the binary of the chess engine you have downloaded. <br/>
-Note: Make sure you download a linux binary that is supported by heroku (by default Stockfish is used, but the default engine name is `chess-engine`).
-- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [17th line of Dockerfile](/Dockerfile#L17) to your binary file's name.
+- Firstly, you have to remove the engine used. To do this you need delete the file named `stockfish15` in the [`engines/` folder](/engines).
+- Then you need to download the binary of the chess engine you want to used and into your GitHub repository, Go to the [`engines/` folder](/engines), Click on `Add files` and then click `Upload files` and upload the binary of the chess engine you have downloaded. <br/>
+Note: Make sure you download a linux binary that is supported by heroku (by default Stockfish is used, and the default engine name is `stockfish15`).
+- Then change the name of engine in [6th line of config.yml](/config.yml#L6) and [14th line of Dockerfile](/Dockerfile#L14) to your binary file's name.
 
 ## Acknowledgements
 Credits to [ShailChoksi's lichess-bot](https://github.com/ShailChoksi/lichess-bot).
