@@ -33,6 +33,7 @@ def create_engine(config):
         raise ValueError(
             f"    Invalid engine type: {engine_type}. Expected xboard, uci, or homemade.")
     options = remove_managed_options(cfg.get(f"{engine_type}_options") or {})
+    logger.debug(f"Starting engine: {' '.join(commands)}")
     return Engine(commands, options, stderr, draw_or_resign, cwd=engine_working_dir)
 
 
@@ -58,9 +59,9 @@ class GameEnding(str, Enum):
     INCOMPLETE = "*"
 
 
-def translate_termination(termination, board, winner_name, winner_color):
+def translate_termination(termination, board, winner_color):
     if termination == Termination.MATE:
-        return f"{winner_name} mates"
+        return f"{winner_color.title()} mates"
     elif termination == Termination.TIMEOUT:
         return "Time forfeiture"
     elif termination == Termination.RESIGN:
@@ -95,25 +96,28 @@ class EngineWrapper:
         self.comment_start_index = None
 
     def search_for(self, board, movetime, ponder, draw_offered):
-        return self.search(board, chess.engine.Limit(time=movetime // 1000), ponder, draw_offered)
+        return self.search(board, chess.engine.Limit(time=movetime / 1000), ponder, draw_offered)
 
     def first_search(self, board, movetime, draw_offered):
         # No pondering after the first move since a different clock is used afterwards.
-        return self.search(board, chess.engine.Limit(time=movetime // 1000), False, draw_offered)
+        return self.search_for(board, movetime, False, draw_offered)
 
     def search_with_ponder(self, board, wtime, btime, winc, binc, ponder, draw_offered):
-        cmds = self.go_commands
-        movetime = cmds.get("movetime")
-        if movetime is not None:
-            movetime = float(movetime) / 1000
         time_limit = chess.engine.Limit(white_clock=wtime / 1000,
                                         black_clock=btime / 1000,
                                         white_inc=winc / 1000,
-                                        black_inc=binc / 1000,
-                                        depth=cmds.get("depth"),
-                                        nodes=cmds.get("nodes"),
-                                        time=movetime)
+                                        black_inc=binc / 1000)
         return self.search(board, time_limit, ponder, draw_offered)
+
+    def add_go_commands(self, time_limit):
+        movetime = self.go_commands.get("movetime")
+        if movetime is not None:
+            movetime_sec = float(movetime) / 1000
+            if time_limit.time is None or time_limit.time > movetime_sec:
+                time_limit.time = movetime_sec
+        time_limit.depth = self.go_commands.get("depth")
+        time_limit.nodes = self.go_commands.get("nodes")
+        return time_limit
 
     def offer_draw_or_resign(self, result, board):
         if self.draw_or_resign.get("offer_draw_enabled", False) and len(self.scores) >= self.draw_or_resign.get("offer_draw_moves", 5):
@@ -131,6 +135,7 @@ class EngineWrapper:
         return result
 
     def search(self, board, time_limit, ponder, draw_offered):
+        time_limit = self.add_go_commands(time_limit)
         result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder, draw_offered=draw_offered)
         self.last_move_info = result.info.copy()
         self.move_commentary.append(self.last_move_info.copy())
@@ -229,7 +234,10 @@ class XBoardEngine(EngineWrapper):
         features = self.engine.protocol.features
         egt_types_from_engine = features["egt"].split(",") if "egt" in features else []
         for egt_type in egt_types_from_engine:
-            options[f"egtpath {egt_type}"] = egt_paths[egt_type]
+            if egt_type in egt_paths:
+                options[f"egtpath {egt_type}"] = egt_paths[egt_type]
+            else:
+                logger.debug(f"No paths found for egt type: {egt_type}.")
         self.engine.configure(options)
 
     def report_game_result(self, game, board):
@@ -248,10 +256,7 @@ class XBoardEngine(EngineWrapper):
         else:
             game_result = GameEnding.INCOMPLETE
 
-        endgame_message = translate_termination(termination,
-                                                board,
-                                                game.white if winner == "white" else game.black,
-                                                winner)
+        endgame_message = translate_termination(termination, board, winner)
         if endgame_message:
             endgame_message = " {" + endgame_message + "}"
 
@@ -262,7 +267,7 @@ class XBoardEngine(EngineWrapper):
 
     def get_opponent_info(self, game):
         if game.opponent.name and self.engine.protocol.features.get("name", True):
-            title = f'{game.opponent.title}{" " if game.opponent.title else ""}'
+            title = f"{game.opponent.title} " if game.opponent.title else ""
             self.engine.protocol.send_line(f"name {title}{game.opponent.name}")
         if game.me.rating is not None and game.opponent.rating is not None:
             self.engine.protocol.send_line(f"rating {game.me.rating} {game.opponent.rating}")
