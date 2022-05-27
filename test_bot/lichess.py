@@ -174,5 +174,6 @@ class Lichess:
 [White "Engine"]
 [Black "Engine"]
 [Result "0-1"]
+
 *
-"""                  
+"""
