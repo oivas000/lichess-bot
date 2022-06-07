@@ -5,6 +5,7 @@ from chess.variant import find_variant
 import chess.polyglot
 import engine_wrapper
 import model
+import matchmaking
 import json
 import lichess
 import logging
@@ -117,6 +118,7 @@ def start(li, user_profile, config, logging_level, log_filename, one_game=False)
     correspondence_queue.put("")
     startup_correspondence_games = [game["gameId"] for game in li.get_ongoing_games() if game["perf"] == "correspondence"]
     wait_for_correspondence_ping = False
+    matchmaker = matchmaking.Matchmaking(li, config, user_profile["username"])
 
     busy_processes = 0
     queued_processes = 0
@@ -145,6 +147,7 @@ def start(li, user_profile, config, logging_level, log_filename, one_game=False)
                 break
             elif event["type"] == "local_game_done":
                 busy_processes -= 1
+                matchmaker.last_game_ended = time.time()
                 logger.info(f"+++ Process Free. Total Queued: {queued_processes}. Total Used: {busy_processes}")
                 if one_game:
                     break
@@ -156,7 +159,7 @@ def start(li, user_profile, config, logging_level, log_filename, one_game=False)
                         list_c = list(challenge_queue)
                         list_c.sort(key=lambda c: -c.score())
                         challenge_queue = list_c
-                else:
+                elif chlng.id != matchmaker.challenge_id:
                     try:
                         reason = "generic"
                         challenge = config["challenge"]
@@ -176,6 +179,8 @@ def start(li, user_profile, config, logging_level, log_filename, one_game=False)
                         pass
             elif event["type"] == "gameStart":
                 game_id = event["game"]["id"]
+                if matchmaker.challenge_id == game_id:
+                    matchmaker.challenge_id = None
                 if game_id in startup_correspondence_games:
                     logger.info(f'--- Enqueue {config["url"] + game_id}')
                     correspondence_queue.put(game_id)
@@ -219,6 +224,10 @@ def start(li, user_profile, config, logging_level, log_filename, one_game=False)
                     if isinstance(exception, HTTPError) and exception.response.status_code == 404:  # ignore missing challenge
                         logger.info(f"Skip missing {chlng}")
                     queued_processes -= 1
+
+            if queued_processes + busy_processes < min(max_games, 1) and not challenge_queue and matchmaker.should_create_challenge():
+                logger.info("Challenging a random bot")
+                matchmaker.challenge()
 
             control_queue.task_done()
 
@@ -280,9 +289,10 @@ def play_game(li, game_id, control_queue, user_profile, config, challenge_queue,
             else:
                 binary_chunk = next(lines)
                 upd = json.loads(binary_chunk.decode("utf-8")) if binary_chunk else None
-            logger.debug(f"Game state: {upd}")
 
             u_type = upd["type"] if upd else "ping"
+            if u_type != "ping":
+                logger.debug(f"Game state: {upd}")
             if u_type == "chatLine":
                 conversation.react(ChatLine(upd), game)
             elif u_type == "gameState":
@@ -696,29 +706,11 @@ def print_pgn_game_record(li, config, game, board, engine):
     game_file_name = "".join(c for c in game_file_name if c not in '<>:"/\\|?*')
     game_path = os.path.join(game_directory, game_file_name)
 
-    # When lichess sends a move with two comments (say a clock comment and an opening label),
-    # these comments are separately brace-delimited--e.g., { [%clk 0:01:00] } { A40 Australian Defense }.
-    # When chess.pgn.read_game() parses these comments, a newline joins them into a single comment.
-    # This class overrides chess.pgn.GameBuilder.visit_comment() in order to replace the newline
-    # joiner with a space.
-    class Lichess_Game_Builder(chess.pgn.GameBuilder):
-        def visit_comment(self, comment):
-            if self.in_variation or (self.variation_stack[-1].parent is None and self.variation_stack[-1].is_end()):
-                # Add as a comment for the current node if in the middle of
-                # a variation. Add as a comment for the game if the comment
-                # starts before any move.
-                new_comment = [self.variation_stack[-1].comment, comment]
-                self.variation_stack[-1].comment = " ".join(new_comment).strip()
-            else:
-                # Otherwise, it is a starting comment.
-                new_comment = [self.starting_comment, comment]
-                self.starting_comment = " ".join(new_comment).strip()
-
-    lichess_game_record = chess.pgn.read_game(io.StringIO(li.get_game_pgn(game.id)), Visitor=Lichess_Game_Builder)
+    lichess_game_record = chess.pgn.read_game(io.StringIO(li.get_game_pgn(game.id)))
     try:
         # Recall previously written PGN file to retain engine evaluations.
         with open(game_path) as game_data:
-            game_record = chess.pgn.read_game(game_data, Visitor=Lichess_Game_Builder)
+            game_record = chess.pgn.read_game(game_data)
         game_record.headers.update(lichess_game_record.headers)
     except FileNotFoundError:
         game_record = lichess_game_record
