@@ -22,7 +22,7 @@ engine:                      # Engine settings.
     selection: "weighted_random" # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
     max_depth: 8             # Half move max depth.
   draw_or_resign:
-    resign_enabled: true
+    resign_enabled: false
     resign_score: -1000      # If the score is less than or equal to this value, the bot resigns (in cp).
     resign_for_egtb_minus_two: true # If true the bot will resign in positions where the online_egtb returns a wdl of -2.
     resign_moves: 3          # How many moves in a row the score has to be below the resign value.
@@ -35,13 +35,13 @@ engine:                      # Engine settings.
     chessdb_book:
       enabled: true
       min_time: 20
-      move_quality: "good"   # One of "all", "good", "best".
-      min_depth: 20          # Only for move_quality: "best".
+      move_quality: "best"   # One of "all", "good", "best".
+      min_depth: 25          # Only for move_quality: "best".
       contribute: true
     lichess_cloud_analysis:
       enabled: true
       min_time: 20
-      move_quality: "good"   # One of "good", "best".
+      move_quality: "best"   # One of "good", "best".
       max_score_difference: 50 # Only for move_quality: "good". The maximum score difference (in cp) between the best move and the other moves.
       min_depth: 20
       min_knodes: 0
@@ -128,7 +128,7 @@ greeting:
 # pgn_directory: "game_records" # A directory where PGN-format records of the bot's games are kept
 
 matchmaking:
-  allow_matchmaking: false    # Set it to 'true' to challenge other bots.
+  allow_matchmaking: true    # Set it to 'true' to challenge other bots.
   challenge_variant: "random" # If set to 'random', the bot will choose one variant from the variants enabled in 'challenge.variants'.
   challenge_timeout: 30       # Create a challenge after being idle for 'challenge_timeout' minutes.
   challenge_initial_time: 60  # Initial time in seconds of the challenge.
