@@ -11,7 +11,7 @@ RUN python3 -m pip install --no-cache-dir -r requirements.txt > pip.log
 RUN wget --no-check-certificate -nv "https://gitlab.com/OIVAS7572/Goi5.1.bin/-/raw/MEGA/Goi5.1.bin.7z" -O Goi5.1.bin.7z \
 && 7z e Goi5.1.bin.7z && rm Goi5.1.bin.7z && mv Goi5.1.bin engines/books/Goi5.1.bin
 
-RUN wget --no-check-certificate -nv "https://abrok.eu/stockfish/builds/7262fd5d14810b7b495b5038e348a448fda1bcc3/linux64modern/stockfish_21102807_x64_modern.zip" -O chess-engine.zip \
+RUN wget --no-check-certificate -nv "https://abrok.eu/stockfish/builds/c2aaaa65f97d4cd5fc06f19ce8d158d85dcd7a7b/linux64modern/stockfish_22070513_x64_modern.zip" -O chess-engine.zip \
 && 7z e chess-engine.zip && rm chess-engine.zip && mv stockfish* engines/chess-engine
 
 RUN chmod +x engines/chess-engine
