@@ -20,7 +20,7 @@ engine:                      # Engine settings.
 #     Use the same pattern for 'giveaway' (antichess), 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
     min_weight: 1            # Does not select moves with weight below min_weight (min 0, max: 65535).
     selection: "best_move"   # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
-    max_depth: 8             # Half move max depth.
+    max_depth: 16            # Half move max depth.
   draw_or_resign:
     resign_enabled: false
     resign_score: -1000      # If the score is less than or equal to this value, the bot resigns (in cp).
@@ -34,20 +34,20 @@ engine:                      # Engine settings.
   online_moves:
     chessdb_book:
       enabled: true
-      min_time: 15
+      min_time: 5
       move_quality: "best"   # One of "all", "good", "best".
       min_depth: 23          # Only for move_quality: "best".
       contribute: true
     lichess_cloud_analysis:
       enabled: true
-      min_time: 15
+      min_time: 5
       move_quality: "best"   # One of "good", "best".
       max_score_difference: 50 # Only for move_quality: "good". The maximum score difference (in cp) between the best move and the other moves.
       min_depth: 25
       min_knodes: 0
     online_egtb:
       enabled: true
-      min_time: 15
+      min_time: 5
       max_pieces: 7
       source: "lichess"      # One of "lichess", "chessdb".
       move_quality: "best"   # One of "good", "best".
