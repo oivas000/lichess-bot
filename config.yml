@@ -34,14 +34,14 @@ engine:                      # Engine settings.
   online_moves:
     chessdb_book:
       enabled: true
-      min_time: 25
-      move_quality:5 "besst"   # One of "all", "good", "best".
+      min_time: 15
+      move_quality: "besst"   # One of "all", "good", "best".
       min_depth: 23          # Only for move_quality: "best".
       contribute: true
     lichess_cloud_analysis:
       enabled: true
-      min_time: 25
-      move_quality: "good"   # One of "good", "best".
+      min_time: 15
+      move_quality: "best"   # One of "good", "best".
       max_score_difference: 50 # Only for move_quality: "good". The maximum score difference (in cp) between the best move and the other moves.
       min_depth: 30
       min_knodes: 0
