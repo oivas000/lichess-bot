@@ -19,12 +19,12 @@ engine:                      # Engine settings.
 #     etc.
 #     Use the same pattern for 'giveaway' (antichess), 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
     min_weight: 1            # Does not select moves with weight below min_weight (min 0, max: 65535).
-    selection: "weighted_random" # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
+    selection: "best_move"   # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
     max_depth: 8             # Half move max depth.
   draw_or_resign:
     resign_enabled: false
     resign_score: -1000      # If the score is less than or equal to this value, the bot resigns (in cp).
-    resign_for_egtb_minus_two: true # If true the bot will resign in positions where the online_egtb returns a wdl of -2.
+    resign_for_egtb_minus_two: false # If true the bot will resign in positions where the online_egtb returns a wdl of -2.
     resign_moves: 3          # How many moves in a row the score has to be below the resign value.
     offer_draw_enabled: true
     offer_draw_score: 5      # If the absolute value of the score is less than or equal to this value, the bot offers/accepts draw (in cp).
@@ -35,7 +35,7 @@ engine:                      # Engine settings.
     chessdb_book:
       enabled: true
       min_time: 15
-      move_quality: "besst"   # One of "all", "good", "best".
+      move_quality: "best"   # One of "all", "good", "best".
       min_depth: 23          # Only for move_quality: "best".
       contribute: true
     lichess_cloud_analysis:
@@ -43,11 +43,11 @@ engine:                      # Engine settings.
       min_time: 15
       move_quality: "best"   # One of "good", "best".
       max_score_difference: 50 # Only for move_quality: "good". The maximum score difference (in cp) between the best move and the other moves.
-      min_depth: 30
+      min_depth: 25
       min_knodes: 0
     online_egtb:
       enabled: true
-      min_time: 10
+      min_time: 15
       max_pieces: 7
       source: "lichess"      # One of "lichess", "chessdb".
       move_quality: "best"   # One of "good", "best".
@@ -59,8 +59,6 @@ engine:                      # Engine settings.
     Move Overhead: 200       # Increase if your bot flags games too often.
     Threads: 2               # Max CPU threads the engine can use.
     Hash: 256                # Max memory (in megabytes) the engine can allocate.
-    UCI_Elo: 2850
-    SkillLevel: 20
 #   go_commands:             # Additional options to pass to the UCI go command.
 #     nodes: 1               # Search so many nodes only.
 #     depth: 5               # Search depth ply only.
@@ -81,16 +79,16 @@ engine:                      # Engine settings.
 abort_time: 20               # Time to abort a game in seconds when there is no activity.
 fake_think_time: false       # Artificially slow down the bot to pretend like it's thinking.
 rate_limiting_delay: 0       # Time (in ms) to delay after sending a move to prevent "Too Many Requests" errors.
-move_overhead: 2000          # Increase if your bot flags games too often.
+move_overhead: 200           # Increase if your bot flags games too often.
 
 correspondence:
-    move_time: 90            # Time in seconds to search in correspondence games.
+    move_time: 60            # Time in seconds to search in correspondence games.
     checkin_period: 600      # How often to check for opponent moves in correspondence games after disconnecting.
     disconnect_time: 300     # Time before disconnecting from a correspondence game.
     ponder: true             # Ponder in correspondence games the bot is connected to.
 
 challenge:                   # Incoming challenges.
-  concurrency: 2             # Number of games to play simultaneously.
+  concurrency: 1             # Number of games to play simultaneously.
   sort_by: "best"            # Possible values: "best" and "first".
   accept_bot: true           # Accepts challenges coming from other bots.
   only_bot: false            # Accept challenges by bots only.
@@ -130,7 +128,7 @@ greeting:
 # pgn_directory: "game_records" # A directory where PGN-format records of the bot's games are kept
 
 matchmaking:
-  allow_matchmaking: true     # Set it to 'true' to challenge other bots.
+  allow_matchmaking: false      # Set it to 'true' to challenge other bots.
   challenge_variant: "standard" # If set to 'random', the bot will choose one variant from the variants enabled in 'challenge.variants'.
   challenge_timeout: 30       # Create a challenge after being idle for 'challenge_timeout' minutes.
   challenge_initial_time: 60  # Initial time in seconds of the challenge.
