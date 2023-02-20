@@ -5,7 +5,7 @@ chess==1.9.2
 PyYAML>=5.4.1
 requests>=2.25.1
 urllib3==1.26.11
-backoff==2.1.2
+backoff==2.2.1
 
 # Requirements for tests
 pytest==7.1.2
