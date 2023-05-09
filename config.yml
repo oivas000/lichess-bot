@@ -81,7 +81,9 @@ engine:                      # Engine settings.
   uci_options:               # Arbitrary UCI options passed to the engine.
     Move Overhead: 2000      # Increase if your bot flags games too often.
     Threads: 2               # Max CPU threads the engine can use.
-    Hash: 256                # Max memory (in megabytes) the engine can allocate.
+    Hash: 128                # Max memory (in megabytes) the engine can allocate.
+    Slow Mover: 40
+    Use NNUE: true
 #   SyzygyPath: "./syzygy/"  # Paths to Syzygy endgame tablebases
 #   go_commands:             # Additional options to pass to the UCI go command.
 #     nodes: 1               # Search so many nodes only.
@@ -114,20 +116,20 @@ correspondence:
   ponder: false              # Ponder in correspondence games the bot is connected to.
 
 challenge:                   # Incoming challenges.
-  concurrency: 2             # Number of games to play simultaneously.
+  concurrency: 1             # Number of games to play simultaneously.
   sort_by: "first"           # Possible values: "best" and "first".
   accept_bot: true           # Accepts challenges coming from other bots.
   only_bot: false            # Accept challenges by bots only.
-  max_increment: 180         # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
+  max_increment: 3           # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
   min_increment: 0           # Minimum amount of increment to accept a challenge.
-  max_base: 315360000        # Maximum amount of base time to accept a challenge. The max is 315360000 (10 years).
-  min_base: 0                # Minimum amount of base time to accept a challenge.
+  max_base: 900              # Maximum amount of base time to accept a challenge. The max is 315360000 (10 years).
+  min_base: 60               # Minimum amount of base time to accept a challenge.
 # max_days: 14               # Maximum number of days per move to accept a challenge for a correspondence game.
                              # Unlimited games can be accepted by removing this field or specifying .inf
   min_days: 1                # Minimum number of days per move to accept a challenge for a correspondence game.
   variants:                  # Chess variants to accept (https://lichess.org/variant).
     - standard
-    - fromPosition
+#   - fromPosition
 #   - antichess
 #   - atomic
     - chess960
@@ -137,11 +139,11 @@ challenge:                   # Incoming challenges.
 #   - racingKings
 #   - threeCheck
   time_controls:             # Time controls to accept.
-    - bullet
+#   - bullet
     - blitz
     - rapid
-    - classical
-    - correspondence
+#   - classical
+#   - correspondence
   modes:                     # Game modes to accept.
     - casual                 # Unrated games.
     - rated                  # Rated games - must comment if the engine doesn't try to win.
@@ -164,23 +166,23 @@ greeting:
 # pgn_directory: "game_records" # A directory where PGN-format records of the bot's games are kept
 
 matchmaking:
-  allow_matchmaking: false    # Set it to 'true' to challenge other bots.
-  challenge_variant: "random" # If set to 'random', the bot will choose one variant from the variants enabled in 'challenge.variants'.
-  challenge_timeout: 30       # Create a challenge after being idle for 'challenge_timeout' minutes. The minimum is 1 minute.
+  allow_matchmaking: true     # Set it to 'true' to challenge other bots.
+  challenge_variant: "standard" # If set to 'random', the bot will choose one variant from the variants enabled in 'challenge.variants'.
+  challenge_timeout: 2        # Create a challenge after being idle for 'challenge_timeout' minutes. The minimum is 1 minute.
   challenge_initial_time:     # Initial time in seconds of the challenge (to be chosen at random).
-    - 60
-    - 120
+    - 600
+    - 420
   challenge_increment:        # Increment in seconds of the challenge (to be chosen at random).
-    - 1
+    - 0
     - 2
 #  challenge_days:            # Days for correspondence challenge (to be chosen at random).
 #    - 1
 #    - 2
 # opponent_min_rating: 600    # Opponents rating should be above this value (600 is the minimum rating in lichess).
 # opponent_max_rating: 4000   # Opponents rating should be below this value (4000 is the maximum rating in lichess).
-  opponent_rating_difference: 50 # The maximum difference in rating between the bot's rating and opponent's rating.
+  opponent_rating_difference: 500 # The maximum difference in rating between the bot's rating and opponent's rating.
   opponent_allow_tos_violation: true # Set to 'false' to prevent challenging bots that violated Lichess Terms of Service.
-  challenge_mode: "random"    # Set it to the mode in which challenges are sent. Possible options are 'casual', 'rated' and 'random'.
+  challenge_mode: "rated"    # Set it to the mode in which challenges are sent. Possible options are 'casual', 'rated' and 'random'.
   delay_after_decline: none   # If a bot declines a challenge, delay issuing another challenge to that bot. Possible options are 'none', 'coarse', and 'fine'.
 # block_list:                 # The list of bots that will not be challenged
 #   - user1
